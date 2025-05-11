@@ -10,11 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 
-
-/**
- *
- * @author auliazhar
- */
 public class RegisterPage extends javax.swing.JFrame {
 
     /**
@@ -40,8 +35,8 @@ public class RegisterPage extends javax.swing.JFrame {
         passwordLabel1 = new javax.swing.JLabel();
         usernameLabel = new javax.swing.JLabel();
         usernameInput = new javax.swing.JTextField();
-        loginButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        loginLink1 = new javax.swing.JLabel();
         Background = new javax.swing.JLabel();
         JPanel = new javax.swing.JPanel();
 
@@ -54,12 +49,13 @@ public class RegisterPage extends javax.swing.JFrame {
         registerButton.setFont(new java.awt.Font("JetBrains Mono NL", 1, 14)); // NOI18N
         registerButton.setForeground(new java.awt.Color(0, 0, 0));
         registerButton.setText("Register");
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 100, 30));
+        getContentPane().add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 390, 225, 35));
 
         passwordInput.setBackground(new java.awt.Color(255, 255, 255));
         passwordInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -68,7 +64,7 @@ public class RegisterPage extends javax.swing.JFrame {
                 passwordInputActionPerformed(evt);
             }
         });
-        getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 330, 190, -1));
+        getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 225, 35));
 
         confirmPwInput.setBackground(new java.awt.Color(255, 255, 255));
         confirmPwInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -77,25 +73,25 @@ public class RegisterPage extends javax.swing.JFrame {
                 confirmPwInputActionPerformed(evt);
             }
         });
-        getContentPane().add(confirmPwInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, 190, -1));
+        getContentPane().add(confirmPwInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 225, 35));
 
         passwordLabel.setBackground(new java.awt.Color(0, 0, 0));
         passwordLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel.setText("Confirm password :");
-        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(581, 330, 160, 20));
+        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 190, 20));
 
         passwordLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        passwordLabel1.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 18)); // NOI18N
+        passwordLabel1.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel1.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel1.setText("Password :");
-        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, -1, -1));
+        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 160, -1));
 
         usernameLabel.setBackground(new java.awt.Color(0, 0, 0));
-        usernameLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 18)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
         usernameLabel.setText("Username :");
-        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, -1, -1));
+        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 160, -1));
 
         usernameInput.setBackground(new java.awt.Color(255, 255, 255));
         usernameInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -104,24 +100,24 @@ public class RegisterPage extends javax.swing.JFrame {
                 usernameInputActionPerformed(evt);
             }
         });
-        getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 250, 190, -1));
+        getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 225, 35));
 
-        loginButton.setBackground(new java.awt.Color(255, 255, 255));
-        loginButton.setFont(new java.awt.Font("JetBrains Mono NL", 1, 14)); // NOI18N
-        loginButton.setForeground(new java.awt.Color(0, 0, 0));
-        loginButton.setText("Login");
-        loginButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 540, -1, 30));
-
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Already have an account?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 540, -1, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 430, -1, -1));
+
+        loginLink1.setBackground(new java.awt.Color(0, 0, 0));
+        loginLink1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
+        loginLink1.setForeground(java.awt.Color.cyan);
+        loginLink1.setText("Login");
+        loginLink1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginLink1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginLink1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, -1, -1));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background/registerBackground.png"))); // NOI18N
         Background.setText("jLabel1");
@@ -145,6 +141,7 @@ public class RegisterPage extends javax.swing.JFrame {
         getContentPane().add(JPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 574));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
@@ -152,6 +149,16 @@ public class RegisterPage extends javax.swing.JFrame {
         String password = passwordInput.getText();
         String confirmPassword = confirmPwInput.getText();
 
+        
+        if(AkunRepositoryImpl.cekSimbolInput(username)){
+            JOptionPane.showMessageDialog(null,
+                "Dalam input Username terdapat simbol yang tidak diperbolehkan",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+        
         if (username.contains(" ")) {
             JOptionPane.showMessageDialog(null,
                 "Dalam input Username jangan gunakan spasi!",
@@ -250,12 +257,6 @@ public class RegisterPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-       LoginPage loginPage = new LoginPage();
-       loginPage.setVisible(true);
-       this.setVisible(false);
-    }//GEN-LAST:event_loginButtonActionPerformed
-
     private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameInputActionPerformed
@@ -268,48 +269,21 @@ public class RegisterPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordInputActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(RegisterPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(RegisterPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(RegisterPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(RegisterPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new RegisterPage().setVisible(true);
-//            }
-//        });
-//    }
+    private void loginLink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLink1MouseClicked
+        // TODO add your handling code here:
+        LoginPage loginpage = new LoginPage();
+        loginpage.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_loginLink1MouseClicked
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JPanel JPanel;
     private javax.swing.JPasswordField confirmPwInput;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton loginButton;
+    private javax.swing.JLabel loginLink1;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel passwordLabel1;

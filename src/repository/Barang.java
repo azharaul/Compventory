@@ -4,10 +4,7 @@
  */
 package repository;
 import service.DBConnectionService;
-/**
- *
- * @author Zildjian XTO
- */
+
 
 import java.sql.*;
 

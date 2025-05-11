@@ -6,10 +6,6 @@ package repository;
 import service.DBConnectionService;
 import repository.AkunRepository;
 
-/**
- *
- * @author Zildjian XTO
- */
 import java.sql.*;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -94,5 +90,14 @@ public class AkunRepositoryImpl implements AkunRepository {
             System.err.println("Gagal mengambil role: " + e.getMessage());
         }
         return null;
+    }
+    
+    public static boolean cekSimbolInput(String input) {
+        for (char c : input.toCharArray()) {
+            if ("!@#$%^&*()".indexOf(c) != -1) {
+                return true;
+            }
+        }
+        return false;
     }
 }

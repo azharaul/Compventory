@@ -4,10 +4,6 @@
  */
 package repository;
 
-/**
- *
- * @author auliazhar
- */
 public interface AkunRepository {
     boolean register(String username, String password, String role);
     boolean login(String username, String password);
