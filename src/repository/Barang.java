@@ -12,12 +12,11 @@ import service.DBConnectionService;
 import java.sql.*;
 
 public class Barang {
-
-    public int id;
-    public String nama;
-    public int jumlah;
-    public Timestamp tanggalMasuk;
-    public Timestamp tanggalKeluar;
+    private int id;
+    private String nama;
+    private int jumlah;
+    private Timestamp tanggalMasuk;
+    private Timestamp tanggalKeluar;
 
     public Barang(String nama, int jumlah) {
         this.nama = nama;
@@ -34,12 +33,10 @@ public class Barang {
 
     public static Barang[] getAllBarang() {
         String countQuery = "SELECT COUNT(*) AS total FROM barang";
-        String dataQuery = "SELECT b.id, b.nama, s.jumlah "
-                        + "FROM barang b "
-                        + "LEFT JOIN stok s ON b.id = s.barang_id";
+        String dataQuery = "SELECT b.id, b.nama, s.jumlah FROM barang b LEFT JOIN stok s ON b.id = s.barang_id";
 
         try (Connection conn = DBConnectionService.getConnection(); 
-            Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement()) {
 
             ResultSet rsCount = stmt.executeQuery(countQuery);
             int total = 0;
@@ -48,8 +45,8 @@ public class Barang {
             }
 
             Barang[] barangArray = new Barang[total];
-
             ResultSet rs = stmt.executeQuery(dataQuery);
+
             int index = 0;
             while (rs.next() && index < total) {
                 barangArray[index] = new Barang(
@@ -79,7 +76,8 @@ public class Barang {
         String insertStok = "INSERT INTO stok (barang_id, jumlah) VALUES (?, ?)";
         String insertMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES (?, ?, ?)";
 
-        try (Connection conn = DBConnectionService.getConnection(); PreparedStatement stmtBarang = conn.prepareStatement(insertBarang, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = DBConnectionService.getConnection();
+             PreparedStatement stmtBarang = conn.prepareStatement(insertBarang, Statement.RETURN_GENERATED_KEYS)) {
 
             stmtBarang.setString(1, nama);
             stmtBarang.setInt(2, harga);
@@ -98,7 +96,7 @@ public class Barang {
                 try (PreparedStatement stmtMasuk = conn.prepareStatement(insertMasuk)) {
                     stmtMasuk.setInt(1, barangId);
                     stmtMasuk.setInt(2, jumlah);
-                    stmtMasuk.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+                    stmtMasuk.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                     stmtMasuk.executeUpdate();
                 }
 
@@ -118,23 +116,28 @@ public class Barang {
             return;
         }
 
-        String query = "UPDATE stok SET jumlah = jumlah + ? WHERE barang_id = (SELECT id FROM barang WHERE nama = ?)";
-        try (Connection conn = DBConnectionService.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, jumlah);
-            stmt.setString(2, nama);
-            int affected = stmt.executeUpdate();
+        String updateStok = "UPDATE stok SET jumlah = jumlah + ? WHERE barang_id = (SELECT id FROM barang WHERE nama = ?)";
+        String insertMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES ((SELECT id FROM barang WHERE nama = ?), ?, ?)";
+
+        try (Connection conn = DBConnectionService.getConnection();
+             PreparedStatement stmtUpdate = conn.prepareStatement(updateStok)) {
+
+            stmtUpdate.setInt(1, jumlah);
+            stmtUpdate.setString(2, nama);
+            int affected = stmtUpdate.executeUpdate();
 
             if (affected > 0) {
-                String insertBarangMasuk = "INSERT INTO barang_masuk (barang_id, jumlah) VALUES ((SELECT id FROM barang WHERE nama = ?), ?)";
-                try (PreparedStatement stmtMasuk = conn.prepareStatement(insertBarangMasuk)) {
+                try (PreparedStatement stmtMasuk = conn.prepareStatement(insertMasuk)) {
                     stmtMasuk.setString(1, nama);
                     stmtMasuk.setInt(2, jumlah);
+                    stmtMasuk.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                     stmtMasuk.executeUpdate();
                 }
                 System.out.println("Barang masuk berhasil.");
             } else {
                 System.out.println("Barang tidak ditemukan atau update stok gagal.");
             }
+
         } catch (SQLException e) {
             System.err.println("Terjadi kesalahan saat memproses barang masuk: " + e.getMessage());
         }
@@ -146,35 +149,45 @@ public class Barang {
             return;
         }
 
-        String query = "UPDATE stok SET jumlah = jumlah - ? "
+        String updateStok = "UPDATE stok SET jumlah = jumlah - ? "
                 + "WHERE barang_id = (SELECT id FROM barang WHERE nama = ?) AND jumlah >= ?";
-        try (Connection conn = DBConnectionService.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, jumlah);
-            stmt.setString(2, nama);
-            stmt.setInt(3, jumlah);
-            int affected = stmt.executeUpdate();
+        String insertKeluar = "INSERT INTO barang_keluar (barang_id, jumlah, tanggal_keluar) "
+                + "VALUES ((SELECT id FROM barang WHERE nama = ?), ?, ?)";
+
+        try (Connection conn = DBConnectionService.getConnection();
+             PreparedStatement stmtUpdate = conn.prepareStatement(updateStok)) {
+
+            stmtUpdate.setInt(1, jumlah);
+            stmtUpdate.setString(2, nama);
+            stmtUpdate.setInt(3, jumlah);
+            int affected = stmtUpdate.executeUpdate();
 
             if (affected == 0) {
                 System.out.println("Stok tidak mencukupi atau barang tidak ditemukan.");
                 return;
             }
 
-            String insertBarangKeluar = "INSERT INTO barang_keluar (barang_id, jumlah) "
-                    + "VALUES ((SELECT id FROM barang WHERE nama = ?), ?)";
-            try (PreparedStatement stmtKeluar = conn.prepareStatement(insertBarangKeluar)) {
+            try (PreparedStatement stmtKeluar = conn.prepareStatement(insertKeluar)) {
                 stmtKeluar.setString(1, nama);
                 stmtKeluar.setInt(2, jumlah);
+                stmtKeluar.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                 stmtKeluar.executeUpdate();
             }
+
+            System.out.println("Barang keluar berhasil.");
+
         } catch (SQLException e) {
-           System.err.println("Terjadi kesalahan saat memproses barang keluar: " + e.getMessage());
+            System.err.println("Terjadi kesalahan saat memproses barang keluar: " + e.getMessage());
         }
     }
 
     public static void tampilkanRiwayatBarang(int barangId) {
         System.out.println("\n=== Riwayat Barang Masuk ===");
         String queryMasuk = "SELECT jumlah, tanggal_masuk FROM barang_masuk WHERE barang_id = ?";
-        try (Connection conn = DBConnectionService.getConnection(); PreparedStatement stmt = conn.prepareStatement(queryMasuk)) {
+
+        try (Connection conn = DBConnectionService.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(queryMasuk)) {
+
             stmt.setInt(1, barangId);
             ResultSet rs = stmt.executeQuery();
 
@@ -185,13 +198,17 @@ public class Barang {
                     System.out.println("Jumlah: " + rs.getInt("jumlah") + ", Tanggal: " + rs.getTimestamp("tanggal_masuk"));
                 } while (rs.next());
             }
+
         } catch (SQLException e) {
             System.err.println("Terjadi kesalahan saat mengambil riwayat barang masuk: " + e.getMessage());
         }
 
         System.out.println("\n=== Riwayat Barang Keluar ===");
         String queryKeluar = "SELECT jumlah, tanggal_keluar FROM barang_keluar WHERE barang_id = ?";
-        try (Connection conn = DBConnectionService.getConnection(); PreparedStatement stmt = conn.prepareStatement(queryKeluar)) {
+
+        try (Connection conn = DBConnectionService.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(queryKeluar)) {
+
             stmt.setInt(1, barangId);
             ResultSet rs = stmt.executeQuery();
 
@@ -202,22 +219,26 @@ public class Barang {
                     System.out.println("Jumlah: " + rs.getInt("jumlah") + ", Tanggal: " + rs.getTimestamp("tanggal_keluar"));
                 } while (rs.next());
             }
+
         } catch (SQLException e) {
             System.err.println("Terjadi kesalahan saat mengambil riwayat barang keluar: " + e.getMessage());
         }
 
         System.out.println("\n=== Sisa Stok Barang ===");
         String queryStok = "SELECT jumlah FROM stok WHERE barang_id = ?";
-        try (Connection conn = DBConnectionService.getConnection(); PreparedStatement stmt = conn.prepareStatement(queryStok)) {
+
+        try (Connection conn = DBConnectionService.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(queryStok)) {
+
             stmt.setInt(1, barangId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                int sisaStok = rs.getInt("jumlah");
-                System.out.println("Sisa stok barang: " + sisaStok);
+                System.out.println("Sisa stok barang: " + rs.getInt("jumlah"));
             } else {
                 System.out.println("Barang tidak ditemukan atau stok tidak tersedia.");
             }
+
         } catch (SQLException e) {
             System.err.println("Terjadi kesalahan saat mengambil data stok: " + e.getMessage());
         }
