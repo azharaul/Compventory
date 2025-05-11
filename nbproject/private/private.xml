@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/display/AdminMenu.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/display/LoginPage.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/display/RegisterPage.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/AkunRepositoryImpl.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/LoginPage.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/AkunRepository.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/DBConnectionService.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/RegisterPage.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/AdminMenu.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/UserMenu.java</file>
         </group>
     </open-files>
 </project-private>
