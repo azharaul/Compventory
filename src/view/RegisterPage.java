@@ -148,20 +148,28 @@ public class RegisterPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-         String username = usernameInput.getText().trim();
+        String username = usernameInput.getText().trim();
         String password = passwordInput.getText();
         String confirmPassword = confirmPwInput.getText();
 
-         
         if (username.contains(" ")) {
-            JOptionPane.showMessageDialog(null, "Dalam Input Username Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "Dalam input Username jangan gunakan spasi!",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
         }
-         if (password.contains(" ")) {
-            JOptionPane.showMessageDialog(null, "Dalam Input Password Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+
+        if (password.contains(" ")) {
+            JOptionPane.showMessageDialog(null,
+                "Dalam input Password jangan gunakan spasi!",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
-        }       
-         
+        }
+
         boolean hasEmptyField = false;
         StringBuilder errorMessage = new StringBuilder("Field berikut harus diisi:\n");
 
@@ -173,51 +181,72 @@ public class RegisterPage extends javax.swing.JFrame {
             usernameInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
-        if (confirmPassword.isEmpty()) {
-            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
-            errorMessage.append("- Password\n");
-            hasEmptyField = true;
-        } else {
-            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        }
-
         if (password.isEmpty()) {
             passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
-            errorMessage.append("- Konfirmasi Password\n");
+            errorMessage.append("- Password\n");
             hasEmptyField = true;
         } else {
             passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
+        if (confirmPassword.isEmpty()) {
+            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            errorMessage.append("- Konfirmasi Password\n");
+            hasEmptyField = true;
+        } else {
+            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
+
         if (hasEmptyField) {
-            JOptionPane.showMessageDialog(null, errorMessage.toString(), "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                errorMessage.toString(),
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
         }
 
         if (!confirmPassword.equals(password)) {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
-            JOptionPane.showMessageDialog(null, "Konfirmasi password tidak sesuai!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "Konfirmasi password tidak sesuai!",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
         } else {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
-        AkunRepositoryImpl akun = new AkunRepositoryImpl();   
-        
+        AkunRepositoryImpl akun = new AkunRepositoryImpl();
+
         if (akun.isUsernameTaken(username)) {
             usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
-            JOptionPane.showMessageDialog(null, "Username sudah digunakan!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "Username sudah digunakan!",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
         }
-        
-        boolean sukses = akun.register(username, password, "Admin");   
+
+        boolean sukses = akun.register(username, password, "Admin");
+
         if (sukses) {
-            JOptionPane.showMessageDialog(null, "Registrasi berhasil!", "Registrasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "Registrasi berhasil!",
+                "Registrasi",
+                JOptionPane.INFORMATION_MESSAGE
+            );
             LoginPage loginPage = new LoginPage();
             loginPage.setVisible(true);
             this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Registrasi gagal!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "Registrasi gagal!",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
