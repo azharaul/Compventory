@@ -148,35 +148,49 @@ public class RegisterPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        String username = usernameInput.getText().trim();
+         String username = usernameInput.getText().trim();
         String password = passwordInput.getText();
         String confirmPassword = confirmPwInput.getText();
 
+         
+        if (username.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "Dalam Input Username Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         if (password.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "Dalam Input Password Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }       
+         
         boolean hasEmptyField = false;
+        StringBuilder errorMessage = new StringBuilder("Field berikut harus diisi:\n");
 
         if (username.isEmpty()) {
             usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            errorMessage.append("- Username\n");
             hasEmptyField = true;
         } else {
             usernameInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
-        if (password.isEmpty()) {
-            passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
-            hasEmptyField = true;
-        } else {
-            passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        }
-
         if (confirmPassword.isEmpty()) {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            errorMessage.append("- Password\n");
             hasEmptyField = true;
         } else {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
+        if (password.isEmpty()) {
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            errorMessage.append("- Konfirmasi Password\n");
+            hasEmptyField = true;
+        } else {
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
+
         if (hasEmptyField) {
-            JOptionPane.showMessageDialog(null, "Semua field harus diisi!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, errorMessage.toString(), "Registrasi", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -188,7 +202,14 @@ public class RegisterPage extends javax.swing.JFrame {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
-        Akun akun = new Akun();        
+        Akun akun = new Akun();   
+        
+        if (akun.isUsernameTaken(username)) {
+            usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            JOptionPane.showMessageDialog(null, "Username sudah digunakan!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         boolean sukses = akun.register(username, password, "Admin");   
         if (sukses) {
             JOptionPane.showMessageDialog(null, "Registrasi berhasil!", "Registrasi", JOptionPane.INFORMATION_MESSAGE);
