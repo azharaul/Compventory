@@ -127,20 +127,29 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String username = usernameInput.getText();
-        String password = passwordInput.getText();
-        System.out.print(username + password);
-        
-         if (username.contains(" ")) {
-            JOptionPane.showMessageDialog(null, "Dalam Input Username Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+        String username = usernameInput.getText().trim();
+        String password = passwordInput.getText().trim();
+
+        System.out.println("Username: " + username + ", Password: " + password);
+
+        if (username.contains(" ")) {
+            JOptionPane.showMessageDialog(null,
+                "Dalam input Username jangan gunakan spasi!",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
         }
-         
+
         if (password.contains(" ")) {
-            JOptionPane.showMessageDialog(null, "Dalam Input Password Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "Dalam input Password jangan gunakan spasi!",
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
-        }       
-         
+        }
+
         boolean hasEmptyField = false;
         StringBuilder errorMessage = new StringBuilder("Field berikut harus diisi:\n");
 
@@ -154,35 +163,43 @@ public class LoginPage extends javax.swing.JFrame {
 
         if (password.isEmpty()) {
             passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
-            errorMessage.append("- Konfirmasi Password\n");
+            errorMessage.append("- Password\n");
             hasEmptyField = true;
         } else {
             passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
         if (hasEmptyField) {
-            JOptionPane.showMessageDialog(null, errorMessage.toString(), "Registrasi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                errorMessage.toString(),
+                "Registrasi",
+                JOptionPane.ERROR_MESSAGE
+            );
             return;
         }
-        
+
         AkunRepositoryImpl akun = new AkunRepositoryImpl();
-        if(akun.login(username, password)){
+
+        if (akun.login(username, password)) {
             String role = akun.getRole(username);
-            System.out.println(role);
-            if(akun.getRole(username).equals("admin")){
+            System.out.println("Role: " + role);
+
+            if (role.equalsIgnoreCase("admin")) {
                 AdminMenu adminMenu = new AdminMenu();
                 adminMenu.setVisible(true);
-                this.setVisible(false);
-            }else{
+            } else {
                 UserMenu userMenu = new UserMenu();
                 userMenu.setVisible(true);
-                this.setVisible(false);
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Login gagal!", "Login", JOptionPane.ERROR_MESSAGE);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Login gagal! Username atau password salah.",
+                "Login",
+                JOptionPane.ERROR_MESSAGE
+            );
         }
-        
-        
+
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
