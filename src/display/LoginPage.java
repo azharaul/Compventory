@@ -5,6 +5,9 @@
 package display;
 import app.Akun;
 import javax.swing.JOptionPane;
+import java.awt.Color;
+import javax.swing.BorderFactory;
+
 /**
  *
  * @author auliazhar
@@ -126,9 +129,43 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameInput.getText();
         String password = passwordInput.getText();
+        
+         if (username.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "Dalam Input Username Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         
+        if (password.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "Dalam Input Password Jangana Gunakan Space!", "Registrasi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }       
+         
+        boolean hasEmptyField = false;
+        StringBuilder errorMessage = new StringBuilder("Field berikut harus diisi:\n");
+
+        if (username.isEmpty()) {
+            usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            errorMessage.append("- Username\n");
+            hasEmptyField = true;
+        } else {
+            usernameInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
+
+        if (password.isEmpty()) {
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            errorMessage.append("- Konfirmasi Password\n");
+            hasEmptyField = true;
+        } else {
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
+
+        if (hasEmptyField) {
+            JOptionPane.showMessageDialog(null, errorMessage.toString(), "Registrasi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         Akun akun = new Akun();
-        boolean sukses = akun.login(username, password);
-        if(sukses){
+        if(akun.login(username, password)){
             String role = akun.getRole(username);
             System.out.println(role);
             if(akun.getRole(username).equals("admin")){
