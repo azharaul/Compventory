@@ -192,10 +192,10 @@ public class LoginPage extends javax.swing.JFrame {
 
         if (akun.login(username, password)) {
             String role = akun.getRole(username);
-            System.out.println("Role: " + role);
+            
 
             if (role.equalsIgnoreCase("admin")) {
-                AdminMenu adminMenu = new AdminMenu();
+                AdminMenu adminMenu = new AdminMenu(username);
                 adminMenu.setVisible(true);
             } else {
                 UserMenu userMenu = new UserMenu();
