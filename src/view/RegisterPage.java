@@ -245,8 +245,7 @@ public class RegisterPage extends javax.swing.JFrame {
                 "Registrasi",
                 JOptionPane.INFORMATION_MESSAGE
             );
-            LoginPage loginPage = new LoginPage();
-            loginPage.setVisible(true);
+            new LoginPage().setVisible(true);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null,
@@ -271,8 +270,7 @@ public class RegisterPage extends javax.swing.JFrame {
 
     private void loginLink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLink1MouseClicked
         // TODO add your handling code here:
-        LoginPage loginpage = new LoginPage();
-        loginpage.setVisible(true);
+        new LoginPage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_loginLink1MouseClicked
 

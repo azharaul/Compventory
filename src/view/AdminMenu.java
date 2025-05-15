@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import java.awt.Color;
 import repository.AkunRepositoryImpl;
 
 /**
@@ -33,6 +34,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
+        logoutButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         sayHi = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -45,15 +47,40 @@ public class AdminMenu extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(60, 74, 93));
         jPanel3.setPreferredSize(new java.awt.Dimension(170, 573));
 
+        logoutButton.setBackground(java.awt.Color.white);
+        logoutButton.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 0, 12)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(0, 0, 0));
+        logoutButton.setText("Logout");
+        logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logoutButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logoutButtonMouseExited(evt);
+            }
+        });
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 170, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(539, Short.MAX_VALUE)
+                .addComponent(logoutButton)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.LINE_START);
@@ -79,6 +106,22 @@ public class AdminMenu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+        new LoginPage().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void logoutButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutButtonMouseExited
+        // TODO add your handling code here:
+        logoutButton.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_logoutButtonMouseExited
+
+    private void logoutButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutButtonMouseEntered
+        // TODO add your handling code here:
+        logoutButton.setForeground(new java.awt.Color(25, 142, 215));
+    }//GEN-LAST:event_logoutButtonMouseEntered
     
 //      
     /**
@@ -91,6 +134,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel sayHi;
     // End of variables declaration//GEN-END:variables
 }

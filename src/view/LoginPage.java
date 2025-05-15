@@ -128,8 +128,6 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameInput.getText().trim();
         String password = passwordInput.getText().trim();
-
-        System.out.println("Username: " + username + ", Password: " + password);
         
         
         
@@ -195,11 +193,9 @@ public class LoginPage extends javax.swing.JFrame {
             
 
             if (role.equalsIgnoreCase("admin")) {
-                AdminMenu adminMenu = new AdminMenu(username);
-                adminMenu.setVisible(true);
+                new AdminMenu(username).setVisible(true);
             } else {
-                UserMenu userMenu = new UserMenu();
-                userMenu.setVisible(true);
+                new UserMenu().setVisible(true);
             }
             this.setVisible(false);
         } else {
@@ -218,8 +214,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void registerLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLinkMouseClicked
         // TODO add your handling code here:
-        RegisterPage register = new RegisterPage();
-        register.setVisible(true);
+        new RegisterPage().setVisible(true);
         this.setVisible(false);
         
     }//GEN-LAST:event_registerLinkMouseClicked
