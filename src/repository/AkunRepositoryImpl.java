@@ -59,7 +59,7 @@ public class AkunRepositoryImpl implements AkunRepository {
             }
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Hashing failed", e);
+            throw new RuntimeException(hasingError(), e);
         }
     }
     
@@ -72,7 +72,7 @@ public class AkunRepositoryImpl implements AkunRepository {
             ResultSet rs = stmt.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            System.err.println("Login error: " + e.getMessage());
+            System.err.println(AkunRepository.showEror() + e.getMessage());
             return false;
         }
     }
@@ -87,7 +87,7 @@ public class AkunRepositoryImpl implements AkunRepository {
                 return rs.getString("role");
             }
         } catch (SQLException e) {
-            System.err.println("Gagal mengambil role: " + e.getMessage());
+            System.err.println(AkunRepository.showEror() + e.getMessage());
         }
         return null;
     }
