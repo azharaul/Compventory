@@ -59,13 +59,13 @@ public class LoginPage extends javax.swing.JFrame {
         passwordLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel.setText("Password :");
-        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, -1, -1));
+        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 220, -1));
 
         usernameLabel.setBackground(new java.awt.Color(0, 0, 0));
         usernameLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
         usernameLabel.setText("Username :");
-        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, -1));
+        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 220, -1));
 
         usernameInput.setBackground(new java.awt.Color(255, 255, 255));
         usernameInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -93,12 +93,12 @@ public class LoginPage extends javax.swing.JFrame {
                 registerLinkMouseClicked(evt);
             }
         });
-        getContentPane().add(registerLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 390, -1, -1));
+        getContentPane().add(registerLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 390, 130, -1));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Don't have an account?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 390, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 390, 220, -1));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background/loginBackground.png"))); // NOI18N
         Background.setText("jLabel1");

@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-import java.awt.Color;
 import repository.AkunRepositoryImpl;
 
 /**
@@ -33,95 +32,238 @@ public class AdminMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        logoutButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        logoutBTN = new javax.swing.JButton();
+        incBarangBTN = new javax.swing.JButton();
+        incStokBTN = new javax.swing.JButton();
+        decStokBTN = new javax.swing.JButton();
+        viewBarangBTN = new javax.swing.JButton();
         sayHi = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        banner = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Admin");
         setResizable(false);
 
-        jPanel3.setBackground(new java.awt.Color(60, 74, 93));
-        jPanel3.setPreferredSize(new java.awt.Dimension(170, 573));
-
-        logoutButton.setBackground(java.awt.Color.white);
-        logoutButton.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 0, 12)); // NOI18N
-        logoutButton.setForeground(new java.awt.Color(0, 0, 0));
-        logoutButton.setText("Logout");
-        logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                logoutButtonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                logoutButtonMouseExited(evt);
-            }
-        });
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(539, Short.MAX_VALUE)
-                .addComponent(logoutButton)
-                .addContainerGap())
-        );
-
-        getContentPane().add(jPanel3, java.awt.BorderLayout.LINE_START);
-
         jPanel4.setBackground(new java.awt.Color(217, 217, 217));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        logoutBTN.setBackground(java.awt.Color.white);
+        logoutBTN.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
+        logoutBTN.setForeground(java.awt.Color.black);
+        logoutBTN.setText("Logout");
+        logoutBTN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutBTN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logoutBTNMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logoutBTNMouseExited(evt);
+            }
+        });
+        logoutBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBTNActionPerformed(evt);
+            }
+        });
+        jPanel4.add(logoutBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 150, 30));
+
+        incBarangBTN.setBackground(new java.awt.Color(255, 255, 255));
+        incBarangBTN.setFont(new java.awt.Font("JetBrains Mono NL", 1, 10)); // NOI18N
+        incBarangBTN.setForeground(new java.awt.Color(0, 0, 0));
+        incBarangBTN.setText("Kurang Stok Barang");
+        incBarangBTN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        incBarangBTN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                incBarangBTNMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                incBarangBTNMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                incBarangBTNMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                incBarangBTNMousePressed(evt);
+            }
+        });
+        jPanel4.add(incBarangBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, 30));
+
+        incStokBTN.setBackground(new java.awt.Color(255, 255, 255));
+        incStokBTN.setFont(new java.awt.Font("JetBrains Mono NL", 1, 10)); // NOI18N
+        incStokBTN.setForeground(new java.awt.Color(0, 0, 0));
+        incStokBTN.setText("Tambah Barang Baru");
+        incStokBTN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        incStokBTN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                incStokBTNMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                incStokBTNMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                incStokBTNMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                incStokBTNMousePressed(evt);
+            }
+        });
+        jPanel4.add(incStokBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 160, 30));
+
+        decStokBTN.setBackground(new java.awt.Color(255, 255, 255));
+        decStokBTN.setFont(new java.awt.Font("JetBrains Mono NL", 1, 10)); // NOI18N
+        decStokBTN.setForeground(new java.awt.Color(0, 0, 0));
+        decStokBTN.setText("Lihat Barang");
+        decStokBTN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        decStokBTN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decStokBTNMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                decStokBTNMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                decStokBTNMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                decStokBTNMousePressed(evt);
+            }
+        });
+        jPanel4.add(decStokBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 160, 30));
+
+        viewBarangBTN.setBackground(new java.awt.Color(255, 255, 255));
+        viewBarangBTN.setFont(new java.awt.Font("JetBrains Mono NL", 1, 10)); // NOI18N
+        viewBarangBTN.setForeground(new java.awt.Color(0, 0, 0));
+        viewBarangBTN.setText("Tambah Stok Barang");
+        viewBarangBTN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        viewBarangBTN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewBarangBTNMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                viewBarangBTNMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                viewBarangBTNMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                viewBarangBTNMousePressed(evt);
+            }
+        });
+        jPanel4.add(viewBarangBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 160, 30));
 
         sayHi.setFont(new java.awt.Font("Serif", 1, 65)); // NOI18N
         sayHi.setForeground(java.awt.Color.black);
         sayHi.setText("Hi, " + name);
-        jPanel4.add(sayHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
+        jPanel4.add(sayHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 45, 500, -1));
 
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
-        jLabel1.setForeground(java.awt.Color.black);
-        jLabel1.setText("Welcome back");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background/Menu BG.png"))); // NOI18N
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/banner_1.png"))); // NOI18N
-        jPanel4.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
-
-        getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+    private void logoutBTNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBTNMouseEntered
+        // TODO add your handling code here:
+        logoutBTN.setForeground(new java.awt.Color(25, 143, 216));
+    }//GEN-LAST:event_logoutBTNMouseEntered
+
+    private void logoutBTNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBTNMouseExited
+        // TODO add your handling code here:
+        logoutBTN.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_logoutBTNMouseExited
+
+    private void incBarangBTNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incBarangBTNMouseEntered
+        // TODO add your handling code here:
+        incBarangBTN.setForeground(new java.awt.Color(25, 143, 216));
+    }//GEN-LAST:event_incBarangBTNMouseEntered
+
+    private void incBarangBTNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incBarangBTNMouseExited
+        // TODO add your handling code here:
+        incBarangBTN.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_incBarangBTNMouseExited
+
+    private void incBarangBTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incBarangBTNMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_incBarangBTNMouseClicked
+
+    private void incBarangBTNMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incBarangBTNMousePressed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_incBarangBTNMousePressed
+
+    private void logoutBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBTNActionPerformed
         // TODO add your handling code here:
         new LoginPage().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_logoutButtonActionPerformed
+    }//GEN-LAST:event_logoutBTNActionPerformed
 
-    private void logoutButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutButtonMouseExited
+    private void incStokBTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incStokBTNMouseClicked
         // TODO add your handling code here:
-        logoutButton.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_logoutButtonMouseExited
+    }//GEN-LAST:event_incStokBTNMouseClicked
 
-    private void logoutButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutButtonMouseEntered
+    private void incStokBTNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incStokBTNMouseEntered
         // TODO add your handling code here:
-        logoutButton.setForeground(new java.awt.Color(25, 142, 215));
-    }//GEN-LAST:event_logoutButtonMouseEntered
+        incStokBTN.setForeground(new java.awt.Color(25, 143, 216));
+    }//GEN-LAST:event_incStokBTNMouseEntered
+
+    private void incStokBTNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incStokBTNMouseExited
+        // TODO add your handling code here:
+        incStokBTN.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_incStokBTNMouseExited
+
+    private void incStokBTNMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_incStokBTNMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_incStokBTNMousePressed
+
+    private void decStokBTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decStokBTNMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_decStokBTNMouseClicked
+
+    private void decStokBTNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decStokBTNMouseEntered
+        // TODO add your handling code here:
+        decStokBTN.setForeground(new java.awt.Color(25, 143, 216));
+    }//GEN-LAST:event_decStokBTNMouseEntered
+
+    private void decStokBTNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decStokBTNMouseExited
+        // TODO add your handling code here:
+        decStokBTN.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_decStokBTNMouseExited
+
+    private void decStokBTNMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decStokBTNMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_decStokBTNMousePressed
+
+    private void viewBarangBTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewBarangBTNMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewBarangBTNMouseClicked
+
+    private void viewBarangBTNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewBarangBTNMouseEntered
+        // TODO add your handling code here:
+        viewBarangBTN.setForeground(new java.awt.Color(25, 143, 216));
+    }//GEN-LAST:event_viewBarangBTNMouseEntered
+
+    private void viewBarangBTNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewBarangBTNMouseExited
+        // TODO add your handling code here:
+        viewBarangBTN.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_viewBarangBTNMouseExited
+
+    private void viewBarangBTNMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewBarangBTNMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewBarangBTNMousePressed
     
 //      
     /**
@@ -130,11 +272,13 @@ public class AdminMenu extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel banner;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton decStokBTN;
+    private javax.swing.JButton incBarangBTN;
+    private javax.swing.JButton incStokBTN;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JButton logoutButton;
+    private javax.swing.JButton logoutBTN;
     private javax.swing.JLabel sayHi;
+    private javax.swing.JButton viewBarangBTN;
     // End of variables declaration//GEN-END:variables
 }

@@ -79,19 +79,19 @@ public class RegisterPage extends javax.swing.JFrame {
         passwordLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel.setText("Confirm password :");
-        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 190, 20));
+        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 220, 20));
 
         passwordLabel1.setBackground(new java.awt.Color(0, 0, 0));
         passwordLabel1.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel1.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel1.setText("Password :");
-        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 160, -1));
+        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 220, -1));
 
         usernameLabel.setBackground(new java.awt.Color(0, 0, 0));
         usernameLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
         usernameLabel.setText("Username :");
-        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 160, -1));
+        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 220, -1));
 
         usernameInput.setBackground(new java.awt.Color(255, 255, 255));
         usernameInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -105,7 +105,7 @@ public class RegisterPage extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Already have an account?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 430, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 430, 330, -1));
 
         loginLink1.setBackground(new java.awt.Color(0, 0, 0));
         loginLink1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
@@ -117,7 +117,7 @@ public class RegisterPage extends javax.swing.JFrame {
                 loginLink1MouseClicked(evt);
             }
         });
-        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, -1, -1));
+        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 160, -1));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background/registerBackground.png"))); // NOI18N
         Background.setText("jLabel1");
