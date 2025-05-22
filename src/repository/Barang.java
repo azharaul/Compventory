@@ -1,248 +1,385 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package repository;
+
+import java.awt.Component;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import service.DBConnectionService;
 
-
-import java.sql.*;
-
 public class Barang {
-    private int id;
-    private String nama;
-    private int jumlah;
-    private Timestamp tanggalMasuk;
-    private Timestamp tanggalKeluar;
 
-    public Barang(String nama, int jumlah) {
-        this.nama = nama;
-        this.jumlah = jumlah;
-    }
-
-    public Barang(int id, String nama, int jumlah, Timestamp tanggalMasuk, Timestamp tanggalKeluar) {
-        this.id = id;
-        this.nama = nama;
-        this.jumlah = jumlah;
-        this.tanggalMasuk = tanggalMasuk;
-        this.tanggalKeluar = tanggalKeluar;
-    }
-
-    public static Barang[] getAllBarang() {
-        String countQuery = "SELECT COUNT(*) AS total FROM barang";
-        String dataQuery = "SELECT b.id, b.nama, s.jumlah FROM barang b LEFT JOIN stok s ON b.id = s.barang_id";
-
-        try (Connection conn = DBConnectionService.getConnection(); 
-             Statement stmt = conn.createStatement()) {
-
-            ResultSet rsCount = stmt.executeQuery(countQuery);
-            int total = 0;
-            if (rsCount.next()) {
-                total = rsCount.getInt("total");
+    public void showTableListBarang(JTable table, Connection conn) {
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {"Nama Barang", "Harga", "Stok", "Deskripsi"} 
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
             }
+        });
 
-            Barang[] barangArray = new Barang[total];
-            ResultSet rs = stmt.executeQuery(dataQuery);
+        DefaultTableModel tb = (DefaultTableModel) table.getModel();
+        tb.setRowCount(0);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
+        table.setRowSelectionAllowed(true);
+        table.setColumnSelectionAllowed(false);
+        table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-            int index = 0;
-            while (rs.next() && index < total) {
-                barangArray[index] = new Barang(
-                        rs.getInt("id"),
-                        rs.getString("nama"),
-                        rs.getInt("jumlah"),
-                        null, null
-                );
-                index++;
+        String sql = """
+            SELECT b.nama, b.harga, IFNULL(s.jumlah, 0) AS stok, b.deskripsi
+            FROM barang b
+            LEFT JOIN stok s ON b.id = s.barang_id
+        """;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                String nama = rs.getString("nama");
+                int harga = rs.getInt("harga");
+                int stok = rs.getInt("stok");
+                String deskripsi = rs.getString("deskripsi");
+
+                tb.addRow(new Object[]{nama, harga, stok, deskripsi});
             }
-
-            return barangArray;
-
         } catch (SQLException e) {
-            System.err.println("Terjadi kesalahan saat mengambil data barang: " + e.getMessage());
-            return new Barang[0];
+            JOptionPane.showMessageDialog(null, "Gagal mengambil data barang: " + e.getMessage());
         }
     }
-
-    public static void tambahBarang(String nama, int jumlah, int harga) {
-        if (jumlah <= 0 || harga <= 0) {
-            System.out.println("Jumlah dan harga harus lebih dari 0.");
+    
+    public void tambahBarangStock(Component parentComponent, JTable table) {
+        String namaBarang = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
+        if (namaBarang == null || namaBarang.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Nama barang tidak boleh kosong!");
             return;
         }
 
-        String insertBarang = "INSERT INTO barang (nama, harga) VALUES (?, ?)";
-        String insertStok = "INSERT INTO stok (barang_id, jumlah) VALUES (?, ?)";
-        String insertMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES (?, ?, ?)";
-
-        try (Connection conn = DBConnectionService.getConnection();
-             PreparedStatement stmtBarang = conn.prepareStatement(insertBarang, Statement.RETURN_GENERATED_KEYS)) {
-
-            stmtBarang.setString(1, nama);
-            stmtBarang.setInt(2, harga);
-            stmtBarang.executeUpdate();
-
-            ResultSet generatedKeys = stmtBarang.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int barangId = generatedKeys.getInt(1);
-
-                try (PreparedStatement stmtStok = conn.prepareStatement(insertStok)) {
-                    stmtStok.setInt(1, barangId);
-                    stmtStok.setInt(2, jumlah);
-                    stmtStok.executeUpdate();
-                }
-
-                try (PreparedStatement stmtMasuk = conn.prepareStatement(insertMasuk)) {
-                    stmtMasuk.setInt(1, barangId);
-                    stmtMasuk.setInt(2, jumlah);
-                    stmtMasuk.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-                    stmtMasuk.executeUpdate();
-                }
-
-                System.out.println("Barang berhasil ditambahkan.");
-            } else {
-                System.out.println("Gagal menambahkan barang baru.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Terjadi kesalahan saat menambah barang: " + e.getMessage());
-        }
-    }
-
-    public static void barangMasuk(String nama, int jumlah) {
-        if (jumlah <= 0) {
-            System.out.println("Jumlah harus lebih dari 0.");
+        String jumlahStr = JOptionPane.showInputDialog(parentComponent, "Masukkan jumlah barang masuk:");
+        if (jumlahStr == null || jumlahStr.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Jumlah barang tidak boleh kosong!");
             return;
         }
 
-        String updateStok = "UPDATE stok SET jumlah = jumlah + ? WHERE barang_id = (SELECT id FROM barang WHERE nama = ?)";
-        String insertMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES ((SELECT id FROM barang WHERE nama = ?), ?, ?)";
-
-        try (Connection conn = DBConnectionService.getConnection();
-             PreparedStatement stmtUpdate = conn.prepareStatement(updateStok)) {
-
-            stmtUpdate.setInt(1, jumlah);
-            stmtUpdate.setString(2, nama);
-            int affected = stmtUpdate.executeUpdate();
-
-            if (affected > 0) {
-                try (PreparedStatement stmtMasuk = conn.prepareStatement(insertMasuk)) {
-                    stmtMasuk.setString(1, nama);
-                    stmtMasuk.setInt(2, jumlah);
-                    stmtMasuk.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-                    stmtMasuk.executeUpdate();
-                }
-                System.out.println("Barang masuk berhasil.");
-            } else {
-                System.out.println("Barang tidak ditemukan atau update stok gagal.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Terjadi kesalahan saat memproses barang masuk: " + e.getMessage());
-        }
-    }
-
-    public static void barangKeluar(String nama, int jumlah) {
-        if (jumlah <= 0) {
-            System.out.println("Jumlah harus lebih dari 0.");
+        int jumlahMasuk;
+        try {
+            jumlahMasuk = Integer.parseInt(jumlahStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Jumlah harus berupa angka!");
             return;
         }
 
-        String updateStok = "UPDATE stok SET jumlah = jumlah - ? "
-                + "WHERE barang_id = (SELECT id FROM barang WHERE nama = ?) AND jumlah >= ?";
-        String insertKeluar = "INSERT INTO barang_keluar (barang_id, jumlah, tanggal_keluar) "
-                + "VALUES ((SELECT id FROM barang WHERE nama = ?), ?, ?)";
+        try (Connection conn = DBConnectionService.getConnection()) {
+            conn.setAutoCommit(false);
 
-        try (Connection conn = DBConnectionService.getConnection();
-             PreparedStatement stmtUpdate = conn.prepareStatement(updateStok)) {
+            int barangId = -1;
+            String sqlCariId = "SELECT id FROM barang WHERE nama = ?";
+            try (PreparedStatement psCari = conn.prepareStatement(sqlCariId)) {
+                psCari.setString(1, namaBarang);
+                ResultSet rs = psCari.executeQuery();
+                if (rs.next()) {
+                    barangId = rs.getInt("id");
+                } else {
+                    JOptionPane.showMessageDialog(parentComponent, "Barang tidak ditemukan!");
+                    return;
+                }
+            }
 
-            stmtUpdate.setInt(1, jumlah);
-            stmtUpdate.setString(2, nama);
-            stmtUpdate.setInt(3, jumlah);
-            int affected = stmtUpdate.executeUpdate();
+            String insertMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES (?, ?, NOW())";
+            try (PreparedStatement psMasuk = conn.prepareStatement(insertMasuk)) {
+                psMasuk.setInt(1, barangId);
+                psMasuk.setInt(2, jumlahMasuk);
+                psMasuk.executeUpdate();
+            }
 
-            if (affected == 0) {
-                System.out.println("Stok tidak mencukupi atau barang tidak ditemukan.");
+            String updateStok = "UPDATE stok SET jumlah = jumlah + ? WHERE barang_id = ?";
+            try (PreparedStatement psUpdate = conn.prepareStatement(updateStok)) {
+                psUpdate.setInt(1, jumlahMasuk);
+                psUpdate.setInt(2, barangId);
+                int affectedRows = psUpdate.executeUpdate();
+
+                if (affectedRows == 0) {
+                    String insertStok = "INSERT INTO stok (barang_id, jumlah) VALUES (?, ?)";
+                    try (PreparedStatement psInsert = conn.prepareStatement(insertStok)) {
+                        psInsert.setInt(1, barangId);
+                        psInsert.setInt(2, jumlahMasuk);
+                        psInsert.executeUpdate();
+                    }
+                }
+            }
+
+            conn.commit();
+            showTableListBarang(table, DBConnectionService.getConnection());
+            JOptionPane.showMessageDialog(parentComponent, "Barang berhasil ditambahkan!");
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Kesalahan database: " + e.getMessage());
+            try {
+                DBConnectionService.getConnection().rollback();
+            } catch (SQLException rollbackEx) {
+                JOptionPane.showMessageDialog(parentComponent, "Gagal rollback: " + rollbackEx.getMessage());
+            }
+        }
+    }
+
+    
+    public void KurangiStockBarang(Component parentComponent, JTable table) {
+        String namaBarang = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
+        if (namaBarang == null || namaBarang.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Nama barang tidak boleh kosong!");
+            return;
+        }
+
+        String jumlahStr = JOptionPane.showInputDialog(parentComponent, "Masukkan jumlah barang yang dikurangi:");
+        if (jumlahStr == null || jumlahStr.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Jumlah barang tidak boleh kosong!");
+            return;
+        }
+
+        int jumlahKeluar;
+        try {
+            jumlahKeluar = Integer.parseInt(jumlahStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Jumlah harus berupa angka!");
+            return;
+        }
+
+        Connection conn = null;
+        try {
+            conn = DBConnectionService.getConnection();
+            conn.setAutoCommit(false);
+
+            int barangId = -1;
+            String sqlCariId = "SELECT id FROM barang WHERE nama = ?";
+            try (PreparedStatement psCari = conn.prepareStatement(sqlCariId)) {
+                psCari.setString(1, namaBarang);
+                ResultSet rs = psCari.executeQuery();
+                if (rs.next()) {
+                    barangId = rs.getInt("id");
+                } else {
+                    JOptionPane.showMessageDialog(parentComponent, "Barang tidak ditemukan!");
+                    return;
+                }
+            }
+
+            int stokSaatIni = 0;
+            String sqlCekStok = "SELECT jumlah FROM stok WHERE barang_id = ?";
+            try (PreparedStatement psCekStok = conn.prepareStatement(sqlCekStok)) {
+                psCekStok.setInt(1, barangId);
+                ResultSet rs = psCekStok.executeQuery();
+                if (rs.next()) {
+                    stokSaatIni = rs.getInt("jumlah");
+                } else {
+                    JOptionPane.showMessageDialog(parentComponent, "Barang belum memiliki stok!");
+                    return;
+                }
+            }
+
+            if (jumlahKeluar > stokSaatIni) {
+                JOptionPane.showMessageDialog(parentComponent, "Jumlah barang keluar melebihi stok yang tersedia! (" + stokSaatIni + " tersedia)");
                 return;
             }
 
-            try (PreparedStatement stmtKeluar = conn.prepareStatement(insertKeluar)) {
-                stmtKeluar.setString(1, nama);
-                stmtKeluar.setInt(2, jumlah);
-                stmtKeluar.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-                stmtKeluar.executeUpdate();
+            String insertKeluar = "INSERT INTO barang_keluar (barang_id, jumlah, tanggal_keluar) VALUES (?, ?, NOW())";
+            try (PreparedStatement psKeluar = conn.prepareStatement(insertKeluar)) {
+                psKeluar.setInt(1, barangId);
+                psKeluar.setInt(2, jumlahKeluar);
+                psKeluar.executeUpdate();
             }
 
-            System.out.println("Barang keluar berhasil.");
+            String updateStok = "UPDATE stok SET jumlah = jumlah - ? WHERE barang_id = ?";
+            try (PreparedStatement psUpdate = conn.prepareStatement(updateStok)) {
+                psUpdate.setInt(1, jumlahKeluar);
+                psUpdate.setInt(2, barangId);
+                psUpdate.executeUpdate();
+            }
+
+            conn.commit();
+            showTableListBarang(table, DBConnectionService.getConnection());
+            JOptionPane.showMessageDialog(parentComponent, "Barang berhasil dikurangi!");
 
         } catch (SQLException e) {
-            System.err.println("Terjadi kesalahan saat memproses barang keluar: " + e.getMessage());
+            JOptionPane.showMessageDialog(parentComponent, "Kesalahan database: " + e.getMessage());
+            try {
+                if (conn != null) conn.rollback();
+            } catch (SQLException rollbackEx) {
+                JOptionPane.showMessageDialog(parentComponent, "Gagal rollback: " + rollbackEx.getMessage());
+            }
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(parentComponent, "Gagal menutup koneksi: " + e.getMessage());
+            }
         }
     }
+    
+    public void tambahBarangBaru(Component parentComponent, JTable table) {
+        String nama = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
+        
+//        int selectedRow = table.getSelectedRow();
+//        String itemName =  table.getValueAt(selectedRow, 0).toString();
+        
+        
+      
 
-    public static void tampilkanRiwayatBarang(int barangId) {
-        System.out.println("\n=== Riwayat Barang Masuk ===");
-        String queryMasuk = "SELECT jumlah, tanggal_masuk FROM barang_masuk WHERE barang_id = ?";
+        if (nama == null || nama.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Nama barang tidak boleh kosong!");
+            return;
+        }
+        
+//        if(nama.equals(itemName)){
+//            JOptionPane.showMessageDialog(parentComponent, "Barang sudah ada");
+//            return;
+//        }
 
-        try (Connection conn = DBConnectionService.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(queryMasuk)) {
 
-            stmt.setInt(1, barangId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (!rs.next()) {
-                System.out.println("Tidak ada riwayat barang masuk.");
-            } else {
-                do {
-                    System.out.println("Jumlah: " + rs.getInt("jumlah") + ", Tanggal: " + rs.getTimestamp("tanggal_masuk"));
-                } while (rs.next());
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Terjadi kesalahan saat mengambil riwayat barang masuk: " + e.getMessage());
+        String hargaStr = JOptionPane.showInputDialog(parentComponent, "Masukkan harga per barang:");
+        if (hargaStr == null || hargaStr.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Harga tidak boleh kosong!");
+            return;
         }
 
-        System.out.println("\n=== Riwayat Barang Keluar ===");
-        String queryKeluar = "SELECT jumlah, tanggal_keluar FROM barang_keluar WHERE barang_id = ?";
-
-        try (Connection conn = DBConnectionService.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(queryKeluar)) {
-
-            stmt.setInt(1, barangId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (!rs.next()) {
-                System.out.println("Tidak ada riwayat barang keluar.");
-            } else {
-                do {
-                    System.out.println("Jumlah: " + rs.getInt("jumlah") + ", Tanggal: " + rs.getTimestamp("tanggal_keluar"));
-                } while (rs.next());
+        int harga;
+        try {
+            harga = Integer.parseInt(hargaStr);
+            if (harga < 0) {
+                JOptionPane.showMessageDialog(parentComponent, "Harga tidak boleh negatif!");
+                return;
             }
-
-        } catch (SQLException e) {
-            System.err.println("Terjadi kesalahan saat mengambil riwayat barang keluar: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Harga harus berupa angka!");
+            return;
         }
 
-        System.out.println("\n=== Sisa Stok Barang ===");
-        String queryStok = "SELECT jumlah FROM stok WHERE barang_id = ?";
+        String deskripsi = JOptionPane.showInputDialog(parentComponent, "Masukkan deskripsi barang:");
+        if (deskripsi == null || deskripsi.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Deskripsi tidak boleh kosong!");
+            return;
+        }
+        
+        
 
-        try (Connection conn = DBConnectionService.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(queryStok)) {
+        try (Connection conn = DBConnectionService.getConnection()) {
+            conn.setAutoCommit(false);
+            
+            
+            
+            String insertBarang = "INSERT INTO barang (nama, harga, deskripsi) VALUES (?, ?, ?)";
+            int barangId;
+            try (PreparedStatement ps = conn.prepareStatement(insertBarang, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, nama);
+                ps.setInt(2, harga);
+                ps.setString(3, deskripsi);
+                ps.executeUpdate();
 
-            stmt.setInt(1, barangId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                System.out.println("Sisa stok barang: " + rs.getInt("jumlah"));
-            } else {
-                System.out.println("Barang tidak ditemukan atau stok tidak tersedia.");
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    barangId = generatedKeys.getInt(1);
+                } else {
+                    conn.rollback();
+                    JOptionPane.showMessageDialog(parentComponent, "Gagal mendapatkan ID barang!");
+                    return;
+                }
             }
 
+            String insertStok = "INSERT INTO stok (barang_id, jumlah) VALUES (?, ?)";
+            try (PreparedStatement psStok = conn.prepareStatement(insertStok)) {
+                psStok.setInt(1, barangId);
+                psStok.setInt(2, 0);
+                psStok.executeUpdate();
+            }
+
+            String insertBarangMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES (?, ?, NOW())";
+            try (PreparedStatement psMasuk = conn.prepareStatement(insertBarangMasuk)) {
+                psMasuk.setInt(1, barangId);
+                psMasuk.setInt(2, 0);
+                psMasuk.executeUpdate();
+            }
+
+            conn.commit(); 
+            JOptionPane.showMessageDialog(parentComponent, "Barang berhasil ditambahkan!");
+
+            showTableListBarang(table, DBConnectionService.getConnection());
+
         } catch (SQLException e) {
-            System.err.println("Terjadi kesalahan saat mengambil data stok: " + e.getMessage());
+            JOptionPane.showMessageDialog(parentComponent, "Kesalahan database: " + e.getMessage());
         }
     }
+    
+    public void lihatRiwayatBarang(JTable table, Component parentComponent, JButton button, JButton button2) {
+        String namaBarang = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
+        if (namaBarang == null || namaBarang.isBlank()) {
+            JOptionPane.showMessageDialog(parentComponent, "Nama barang tidak boleh kosong!");
+            return;
+        }
 
-    @Override
-    public String toString() {
-        return "Nama Barang: " + nama + ", Stok: " + jumlah + ", Tanggal Masuk: " + tanggalMasuk + ", Tanggal Keluar: " + tanggalKeluar;
+        try (Connection conn = DBConnectionService.getConnection()) {
+            int barangId = -1;
+            String sqlCariId = "SELECT id FROM barang WHERE nama = ?";
+            try (PreparedStatement psCari = conn.prepareStatement(sqlCariId)) {
+                psCari.setString(1, namaBarang);
+                ResultSet rs = psCari.executeQuery();
+                if (rs.next()) {
+                    barangId = rs.getInt("id");
+                } else {
+                    JOptionPane.showMessageDialog(parentComponent, "Barang tidak ditemukan!");
+                    return;
+                }
+            }
+
+            table.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{},
+                    new String[]{"Tipe", "Jumlah", "Tanggal"}
+            ) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            });
+
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0);
+
+            table.getTableHeader().setReorderingAllowed(false);
+            table.getTableHeader().setResizingAllowed(false);
+            table.setRowSelectionAllowed(true);
+            table.setColumnSelectionAllowed(false);
+            table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+            String sql = """
+                SELECT 'Masuk' AS tipe, jumlah, tanggal_masuk AS tanggal
+                FROM barang_masuk WHERE barang_id = ?
+                UNION ALL
+                SELECT 'Keluar' AS tipe, jumlah, tanggal_keluar AS tanggal
+                FROM barang_keluar WHERE barang_id = ?
+                ORDER BY tanggal ASC
+            """;
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, barangId);
+                ps.setInt(2, barangId);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    String tipe = rs.getString("tipe");
+                    int jumlah = rs.getInt("jumlah");
+                    Timestamp tanggal = rs.getTimestamp("tanggal");
+
+                    model.addRow(new Object[]{tipe, jumlah, tanggal});
+                    button.setVisible(true);
+                    button2.setVisible(false);
+                }
+
+                if (model.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(parentComponent, "Belum ada riwayat barang masuk/keluar untuk barang ini.");
+                }
+
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Kesalahan database: " + e.getMessage());
+        }
     }
 }
