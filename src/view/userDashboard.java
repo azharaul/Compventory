@@ -2,10 +2,7 @@ package view;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
-
 import javax.swing.JOptionPane;
-import repository.Barang;
 import service.DBConnectionService;
 
 public class UserDashboard extends javax.swing.JFrame {
