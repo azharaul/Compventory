@@ -182,6 +182,7 @@ public class UserDashboard extends javax.swing.JFrame {
         getContentPane().add(menu, java.awt.BorderLayout.LINE_START);
 
         dashboardView.setBackground(new java.awt.Color(217, 217, 217));
+        dashboardView.setPreferredSize(new java.awt.Dimension(840, 574));
 
         jPanel1.setBackground(new java.awt.Color(217, 217, 217));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
