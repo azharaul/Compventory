@@ -36,6 +36,14 @@ public class RegisterPage extends javax.swing.JFrame {
         registerButton.setForeground(new java.awt.Color(0, 0, 0));
         registerButton.setText("Register");
         registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                registerButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                registerButtonMouseExited(evt);
+            }
+        });
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
@@ -91,19 +99,25 @@ public class RegisterPage extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Already have an account?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 430, 330, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 430, 210, -1));
 
         loginLink1.setBackground(new java.awt.Color(0, 0, 0));
         loginLink1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
-        loginLink1.setForeground(java.awt.Color.cyan);
+        loginLink1.setForeground(new java.awt.Color(255, 255, 255));
         loginLink1.setText("Login");
         loginLink1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginLink1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginLink1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                loginLink1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                loginLink1MouseExited(evt);
+            }
         });
-        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 160, -1));
+        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 40, -1));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background/registerBackground.png"))); // NOI18N
         Background.setText("jLabel1");
@@ -223,7 +237,7 @@ public class RegisterPage extends javax.swing.JFrame {
             return;
         }
 
-        boolean sukses = akun.register(username, password, "Admin");
+        boolean sukses = akun.register(username, password, "user");
 
         if (sukses) {
             JOptionPane.showMessageDialog(null,
@@ -259,6 +273,26 @@ public class RegisterPage extends javax.swing.JFrame {
         new LoginPage("t").setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_loginLink1MouseClicked
+
+    private void loginLink1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLink1MouseEntered
+        loginLink1.setForeground(Color.cyan);
+    }//GEN-LAST:event_loginLink1MouseEntered
+
+    private void loginLink1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLink1MouseExited
+        loginLink1.setForeground(Color.white);
+    }//GEN-LAST:event_loginLink1MouseExited
+
+    private void registerButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseEntered
+        // TODO add your handling code here:
+        registerButton.setForeground(new java.awt.Color(25, 143, 216));
+
+    }//GEN-LAST:event_registerButtonMouseEntered
+
+    private void registerButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseExited
+        // TODO add your handling code here:
+        registerButton.setForeground(java.awt.Color.black);
+
+    }//GEN-LAST:event_registerButtonMouseExited
 
     
 

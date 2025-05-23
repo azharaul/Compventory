@@ -1,17 +1,11 @@
 package view;
 
-import java.awt.Color;
 import repository.Barang;
 import service.DBConnectionService;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
-
-import java.awt.Component;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 public class LihatBarangAdmin extends javax.swing.JFrame {
     private String name;
     
@@ -28,13 +22,7 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Gagal menampilkan data barang: " + e.getMessage());
         }
-        
-        
     }
-    
-    private void setCustomTableRenderer() {
-  
-}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,10 +39,10 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
 
         jCheckBox1.setText("jCheckBox1");
 
-        setTitle("(Admin)Lihat Barang");
+        setTitle("(Admin)View Item");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(59, 73, 93));
         jPanel1.setForeground(new java.awt.Color(153, 204, 255));
 
         jTable1.setBackground(new java.awt.Color(245, 245, 245));
@@ -73,30 +61,57 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
-        kurangiStokBtn.setBackground(new java.awt.Color(33, 150, 243));
-        kurangiStokBtn.setForeground(java.awt.Color.white);
+        kurangiStokBtn.setBackground(java.awt.Color.white);
+        kurangiStokBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        kurangiStokBtn.setForeground(java.awt.Color.black);
         kurangiStokBtn.setText("Kurangi Stock");
+        kurangiStokBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        kurangiStokBtn.setPreferredSize(new java.awt.Dimension(76, 27));
+        kurangiStokBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                kurangiStokBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                kurangiStokBtnMouseExited(evt);
+            }
+        });
         kurangiStokBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kurangiStokBtnActionPerformed(evt);
             }
         });
 
-        tambahStokBtn.setBackground(new java.awt.Color(33, 150, 243));
-        tambahStokBtn.setForeground(new java.awt.Color(255, 255, 255));
+        tambahStokBtn.setBackground(java.awt.Color.white);
+        tambahStokBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tambahStokBtn.setForeground(java.awt.Color.black);
         tambahStokBtn.setText("Tambah Stock");
+        tambahStokBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tambahStokBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tambahStokBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tambahStokBtnMouseExited(evt);
+            }
+        });
         tambahStokBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tambahStokBtnActionPerformed(evt);
             }
         });
 
-        barangBaruBtn.setBackground(new java.awt.Color(33, 150, 243));
-        barangBaruBtn.setForeground(new java.awt.Color(255, 255, 255));
+        barangBaruBtn.setBackground(java.awt.Color.white);
+        barangBaruBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        barangBaruBtn.setForeground(java.awt.Color.black);
         barangBaruBtn.setText("Barang Baru");
+        barangBaruBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barangBaruBtn.setPreferredSize(new java.awt.Dimension(76, 27));
         barangBaruBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 barangBaruBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                barangBaruBtnMouseExited(evt);
             }
         });
         barangBaruBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -105,9 +120,19 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
             }
         });
 
-        backBtn.setBackground(new java.awt.Color(33, 150, 243));
-        backBtn.setForeground(new java.awt.Color(255, 255, 255));
+        backBtn.setBackground(java.awt.Color.white);
+        backBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        backBtn.setForeground(java.awt.Color.black);
         backBtn.setText("Back Admin Menu");
+        backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backBtnMouseExited(evt);
+            }
+        });
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
@@ -120,32 +145,27 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(barangBaruBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(kurangiStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(tambahStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 180, Short.MAX_VALUE)))
+                .addComponent(barangBaruBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(kurangiStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tambahStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(barangBaruBtn)
-                    .addComponent(kurangiStokBtn)
+                    .addComponent(barangBaruBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kurangiStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tambahStokBtn)
                     .addComponent(backBtn))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -175,9 +195,49 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void barangBaruBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barangBaruBtnMouseEntered
-        // TODO add your handling code here:
-        barangBaruBtn.setForeground(new java.awt.Color(0,188,212));
+        barangBaruBtn.setForeground(new java.awt.Color(25, 143, 216));
+
     }//GEN-LAST:event_barangBaruBtnMouseEntered
+
+    private void barangBaruBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barangBaruBtnMouseExited
+        // TODO add your handling code here:
+        barangBaruBtn.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_barangBaruBtnMouseExited
+
+    private void kurangiStokBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kurangiStokBtnMouseEntered
+        // TODO add your handling code here:
+        kurangiStokBtn.setForeground(new java.awt.Color(25, 143, 216));
+
+    }//GEN-LAST:event_kurangiStokBtnMouseEntered
+
+    private void kurangiStokBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kurangiStokBtnMouseExited
+        // TODO add your handling code here:
+        kurangiStokBtn.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_kurangiStokBtnMouseExited
+
+    private void tambahStokBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahStokBtnMouseEntered
+        // TODO add your handling code here:
+        tambahStokBtn.setForeground(new java.awt.Color(25, 143, 216));
+
+    }//GEN-LAST:event_tambahStokBtnMouseEntered
+
+    private void tambahStokBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahStokBtnMouseExited
+        // TODO add your handling code here:
+        tambahStokBtn.setForeground(java.awt.Color.black);
+
+    }//GEN-LAST:event_tambahStokBtnMouseExited
+
+    private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
+        // TODO add your handling code here:
+        backBtn.setForeground(new java.awt.Color(25, 143, 216));
+
+    }//GEN-LAST:event_backBtnMouseEntered
+
+    private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
+        // TODO add your handling code here:
+        backBtn.setForeground(java.awt.Color.black);
+
+    }//GEN-LAST:event_backBtnMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

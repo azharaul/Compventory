@@ -64,6 +64,14 @@ public class LoginPage extends javax.swing.JFrame {
         loginButton.setForeground(new java.awt.Color(0, 0, 0));
         loginButton.setText("Login");
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                loginButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                loginButtonMouseExited(evt);
+            }
+        });
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
@@ -79,6 +87,12 @@ public class LoginPage extends javax.swing.JFrame {
         registerLink.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 registerLinkMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                registerLinkMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                registerLinkMouseExited(evt);
             }
         });
         getContentPane().add(registerLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 390, 130, -1));
@@ -183,7 +197,7 @@ public class LoginPage extends javax.swing.JFrame {
             if (role.equalsIgnoreCase("admin")) {
                 new AdminDashboard(username).setVisible(true);
             } else {
-                new UserMenu(username).setVisible(true);
+                new UserDashboard(username).setVisible(true);
             }
             this.setVisible(false);
         } else {
@@ -204,6 +218,26 @@ public class LoginPage extends javax.swing.JFrame {
         new RegisterPage().setVisible(true);
         this.setVisible(false);     
     }//GEN-LAST:event_registerLinkMouseClicked
+
+    private void registerLinkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLinkMouseEntered
+        registerLink.setForeground(Color.cyan);
+    }//GEN-LAST:event_registerLinkMouseEntered
+
+    private void registerLinkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLinkMouseExited
+        registerLink.setForeground(Color.white);
+    }//GEN-LAST:event_registerLinkMouseExited
+
+    private void loginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseEntered
+        // TODO add your handling code here:
+        loginButton.setForeground(new java.awt.Color(25, 143, 216));
+
+    }//GEN-LAST:event_loginButtonMouseEntered
+
+    private void loginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseExited
+        // TODO add your handling code here:
+        loginButton.setForeground(java.awt.Color.black);
+
+    }//GEN-LAST:event_loginButtonMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
