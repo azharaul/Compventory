@@ -217,23 +217,11 @@ public class Barang {
     
     public void tambahBarangBaru(Component parentComponent, JTable table) {
         String nama = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
-        
-//        int selectedRow = table.getSelectedRow();
-//        String itemName =  table.getValueAt(selectedRow, 0).toString();
-        
-        
-      
 
         if (nama == null || nama.isBlank()) {
             JOptionPane.showMessageDialog(parentComponent, "Nama barang tidak boleh kosong!");
             return;
         }
-        
-//        if(nama.equals(itemName)){
-//            JOptionPane.showMessageDialog(parentComponent, "Barang sudah ada");
-//            return;
-//        }
-
 
         String hargaStr = JOptionPane.showInputDialog(parentComponent, "Masukkan harga per barang:");
         if (hargaStr == null || hargaStr.isBlank()) {
@@ -265,7 +253,15 @@ public class Barang {
             conn.setAutoCommit(false);
             
             
-            
+            String cekNama = "SELECT COUNT(*) FROM barang WHERE LOWER(nama) = LOWER(?)";
+            try (PreparedStatement psCek = conn.prepareStatement(cekNama)) {
+                psCek.setString(1, nama);
+                ResultSet rs = psCek.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(parentComponent, "Nama barang sudah ada di database! Tidak boleh duplikat.");
+                    return;
+                }
+            }
             String insertBarang = "INSERT INTO barang (nama, harga, deskripsi) VALUES (?, ?, ?)";
             int barangId;
             try (PreparedStatement ps = conn.prepareStatement(insertBarang, Statement.RETURN_GENERATED_KEYS)) {
@@ -380,6 +376,96 @@ public class Barang {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(parentComponent, "Kesalahan database: " + e.getMessage());
+        }
+    }
+    
+    public void userBeliBarang(JTable table, Connection conn) {
+        int selectedRow = table.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Pilih baris / Barang yang ingin dibeli.");
+            return;
+        }
+
+        String namaBarang = table.getValueAt(selectedRow, 0).toString(); // kolom Nama Barang
+        int harga = Integer.parseInt(table.getValueAt(selectedRow, 1).toString());
+        int stok = Integer.parseInt(table.getValueAt(selectedRow, 2).toString());
+
+        if (stok == 0) {
+            JOptionPane.showMessageDialog(null, "Stok barang kosong.");
+            return;
+        }
+
+        String inputJumlah = JOptionPane.showInputDialog("Masukkan jumlah yang ingin dibeli:");
+        if (inputJumlah == null || inputJumlah.isEmpty()) return;
+
+        int jumlah;
+        try {
+            jumlah = Integer.parseInt(inputJumlah);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Masukkan jumlah yang valid.");
+            return;
+        }
+
+        if (jumlah <= 0) {
+            JOptionPane.showMessageDialog(null, "Jumlah harus lebih dari 0.");
+            return;
+        }
+
+        if (jumlah > stok) {
+            JOptionPane.showMessageDialog(null, "Stok tidak mencukupi. Stok tersedia: " + stok);
+            return;
+        }
+
+        int totalHarga = harga * jumlah;
+
+        int confirm = JOptionPane.showConfirmDialog(null,
+            "Beli " + jumlah + " " + namaBarang + " dengan total harga Rp" + totalHarga + "?",
+            "Konfirmasi Pembelian",
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        try {
+            int barangId = -1;
+            String getIdQuery = "SELECT id FROM barang WHERE nama = ?";
+            try (PreparedStatement ps = conn.prepareStatement(getIdQuery)) {
+                ps.setString(1, namaBarang);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    barangId = rs.getInt("id");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Barang tidak ditemukan di database.");
+                    return;
+                }
+            }
+
+            conn.setAutoCommit(false);
+
+            String updateStok = "UPDATE stok SET jumlah = jumlah - ? WHERE barang_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(updateStok)) {
+                ps.setInt(1, jumlah);
+                ps.setInt(2, barangId);
+                ps.executeUpdate();
+            }
+
+            String insertKeluar = "INSERT INTO barang_keluar (barang_id, jumlah, tanggal_keluar) VALUES (?, ?, NOW())";
+            try (PreparedStatement ps = conn.prepareStatement(insertKeluar)) {
+                ps.setInt(1, barangId);
+                ps.setInt(2, jumlah);
+                ps.executeUpdate();
+            }
+
+            conn.commit();
+            JOptionPane.showMessageDialog(null, "Pembelian berhasil.\nTotal: Rp" + totalHarga);
+            table.setValueAt(stok - jumlah, selectedRow, 2); 
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Rollback Gagal" + ex.getMessage());
+            }
         }
     }
 }

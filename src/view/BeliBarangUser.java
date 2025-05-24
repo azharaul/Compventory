@@ -36,8 +36,8 @@ public class BeliBarangUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        beliBarang = new javax.swing.JButton();
-        beliBarang1 = new javax.swing.JButton();
+        beliBtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,21 +57,41 @@ public class BeliBarangUser extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        beliBarang.setBackground(new java.awt.Color(33, 150, 243));
-        beliBarang.setForeground(new java.awt.Color(255, 255, 255));
-        beliBarang.setText("Beli Barang");
-        beliBarang.addActionListener(new java.awt.event.ActionListener() {
+        beliBtn.setBackground(java.awt.Color.white);
+        beliBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        beliBtn.setForeground(java.awt.Color.black);
+        beliBtn.setText("Beli Barang");
+        beliBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        beliBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                beliBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                beliBtnMouseExited(evt);
+            }
+        });
+        beliBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                beliBarangActionPerformed(evt);
+                beliBtnActionPerformed(evt);
             }
         });
 
-        beliBarang1.setBackground(new java.awt.Color(33, 150, 243));
-        beliBarang1.setForeground(new java.awt.Color(255, 255, 255));
-        beliBarang1.setText("Back User Menu");
-        beliBarang1.addActionListener(new java.awt.event.ActionListener() {
+        backBtn.setBackground(java.awt.Color.white);
+        backBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        backBtn.setForeground(java.awt.Color.black);
+        backBtn.setText("Back User Menu");
+        backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backBtnMouseExited(evt);
+            }
+        });
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                beliBarang1ActionPerformed(evt);
+                backBtnActionPerformed(evt);
             }
         });
 
@@ -79,23 +99,23 @@ public class BeliBarangUser extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(beliBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(beliBarang1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(beliBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backBtn)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(beliBarang)
-                    .addComponent(beliBarang1))
-                .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(beliBtn)
+                    .addComponent(backBtn))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,7 +133,7 @@ public class BeliBarangUser extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void beliBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliBarangActionPerformed
+    private void beliBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliBtnActionPerformed
         Barang barangRepo = new Barang();
         Connection con;
         try {
@@ -122,17 +142,41 @@ public class BeliBarangUser extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(BeliBarangUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_beliBarangActionPerformed
+    }//GEN-LAST:event_beliBtnActionPerformed
 
-    private void beliBarang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliBarang1ActionPerformed
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.setVisible(false);
         new UserDashboard(name).setVisible(true);
-    }//GEN-LAST:event_beliBarang1ActionPerformed
+    }//GEN-LAST:event_backBtnActionPerformed
+
+    private void beliBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beliBtnMouseEntered
+        // TODO add your handling code here:
+        beliBtn.setForeground(new java.awt.Color(25, 143, 216));
+
+    }//GEN-LAST:event_beliBtnMouseEntered
+
+    private void beliBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beliBtnMouseExited
+        // TODO add your handling code here:
+        beliBtn.setForeground(java.awt.Color.black);
+
+    }//GEN-LAST:event_beliBtnMouseExited
+
+    private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
+        // TODO add your handling code here:
+        backBtn.setForeground(new java.awt.Color(25, 143, 216));
+
+    }//GEN-LAST:event_backBtnMouseEntered
+
+    private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
+        // TODO add your handling code here:
+        backBtn.setForeground(java.awt.Color.black);
+
+    }//GEN-LAST:event_backBtnMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton beliBarang;
-    private javax.swing.JButton beliBarang1;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton beliBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
