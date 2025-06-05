@@ -16,18 +16,13 @@
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/CekRequestServiceImpl.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/AdminDashboard.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/BeliBarangUser.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/LihatBarangAdmin.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/LihatRiwayatBarangAdmin.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/RegisterPage.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/LoginPage.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/UserCekRequest.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/userDashboard.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/AkunRepository.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/AkunRepositoryImpl.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/entity/Compventory.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/entity/Admin.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/entity/User.java</file>
             <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/AudioService.java</file>
+            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/LoginPage.java</file>
         </group>
     </open-files>
 </project-private>
