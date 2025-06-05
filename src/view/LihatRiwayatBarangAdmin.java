@@ -1,6 +1,5 @@
 package view;
-
-import repository.Barang;
+import repository.BarangRepositoryImpl;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
@@ -9,11 +8,13 @@ import service.DBConnectionService;
 public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
 
     private String name;
-
+    public LihatRiwayatBarangAdmin(){
+        initComponents();
+    }
     public LihatRiwayatBarangAdmin(String name) {
         try {
             Connection conn = DBConnectionService.getConnection();
-            Barang barangRepo = new Barang();
+            BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
             initComponents();
             barangRepo.showTableListBarang(jTable1, conn);
             bckListBarangBtn.setVisible(false);
@@ -163,7 +164,7 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void historyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyBtnActionPerformed
-       Barang barangRepo = new Barang(); 
+       BarangRepositoryImpl barangRepo = new BarangRepositoryImpl(); 
        barangRepo.lihatRiwayatBarang(jTable1, this, bckListBarangBtn, historyBtn);
        
     }//GEN-LAST:event_historyBtnActionPerformed
@@ -171,7 +172,7 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
     private void bckListBarangBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bckListBarangBtnActionPerformed
         try {
             Connection conn = DBConnectionService.getConnection();
-            Barang barangRepo = new Barang();
+            BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
             barangRepo.showTableListBarang(jTable1, conn);
             bckListBarangBtn.setVisible(false);
             historyBtn.setVisible(true);
@@ -181,39 +182,27 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_bckListBarangBtnActionPerformed
 
     private void bckListBarangBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bckListBarangBtnMouseEntered
-        // TODO add your handling code here:
         bckListBarangBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_bckListBarangBtnMouseEntered
 
     private void bckListBarangBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bckListBarangBtnMouseExited
-        // TODO add your handling code here:
         bckListBarangBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_bckListBarangBtnMouseExited
 
     private void historyBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyBtnMouseEntered
-        // TODO add your handling code here:
         historyBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_historyBtnMouseEntered
 
     private void historyBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyBtnMouseExited
-        // TODO add your handling code here:
         historyBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_historyBtnMouseExited
 
     private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-        // TODO add your handling code here:
         backBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_backBtnMouseEntered
 
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-        // TODO add your handling code here:
         backBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_backBtnMouseExited
 
 

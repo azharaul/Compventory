@@ -4,14 +4,14 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 
-
-
 public class LoginPage extends javax.swing.JFrame {
     
     private String name;
-    
+    public LoginPage(){
+        initComponents();
+    }
     public LoginPage(String name) {
-        this.name = name;;
+        this.name = name;
         initComponents();
     }
 
@@ -36,11 +36,6 @@ public class LoginPage extends javax.swing.JFrame {
 
         passwordInput.setBackground(new java.awt.Color(255, 255, 255));
         passwordInput.setForeground(new java.awt.Color(0, 0, 0));
-        passwordInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordInputActionPerformed(evt);
-            }
-        });
         getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 225, 35));
 
         passwordLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -102,7 +97,7 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel1.setText("Don't have an account?");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 390, 220, -1));
 
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background/loginBackground.png"))); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/background/loginBackground.png"))); // NOI18N
         Background.setText("jLabel1");
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
@@ -130,8 +125,6 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameInput.getText().trim();
         String password = passwordInput.getText().trim();
-        
-        
         
         if(AkunRepositoryImpl.cekSimbolInput(username)){
             JOptionPane.showMessageDialog(null,
@@ -197,7 +190,7 @@ public class LoginPage extends javax.swing.JFrame {
             if (role.equalsIgnoreCase("admin")) {
                 new AdminDashboard(username).setVisible(true);
             } else {
-                new UserDashboard(username).setVisible(true);
+                new userDashboard(username).setVisible(true);
             }
             this.setVisible(false);
         } else {
@@ -209,10 +202,6 @@ public class LoginPage extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_loginButtonActionPerformed
-
-    private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordInputActionPerformed
-
-    }//GEN-LAST:event_passwordInputActionPerformed
 
     private void registerLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLinkMouseClicked
         new RegisterPage().setVisible(true);
@@ -228,15 +217,11 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_registerLinkMouseExited
 
     private void loginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseEntered
-        // TODO add your handling code here:
         loginButton.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_loginButtonMouseEntered
 
     private void loginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseExited
-        // TODO add your handling code here:
         loginButton.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_loginButtonMouseExited
 
 

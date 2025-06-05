@@ -5,15 +5,14 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import service.DBConnectionService;
 
-public class UserDashboard extends javax.swing.JFrame {
-    private String name;
+public class userDashboard extends javax.swing.JFrame {
+    private final String NAME;
     
-    public UserDashboard(String name) {
-        this.name = name;
+    public userDashboard(String name) {
+        this.NAME = name;
         initComponents();
     }
-
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,7 +126,7 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel3.setText("COMPVENTORY");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 210, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/54b85941-cad8-4986-9248-efd5fded01e5 (3).png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/icon/54b85941-cad8-4986-9248-efd5fded01e5 (3).png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 0, 60, 50));
 
         jPanel3.setBackground(new java.awt.Color(59, 73, 93));
@@ -139,7 +138,7 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel5.setText("Dashboard");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/HOME_ICON.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/icon/HOME_ICON.png"))); // NOI18N
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 10, 60, 30));
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
@@ -192,11 +191,11 @@ public class UserDashboard extends javax.swing.JFrame {
 
         sayHi.setFont(new java.awt.Font("Serif", 1, 65)); // NOI18N
         sayHi.setForeground(java.awt.Color.black);
-        sayHi.setText("Hi, " + name);
+        sayHi.setText("Hi, " + NAME);
         jPanel1.add(sayHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 520, -1));
 
         jLabel1.setBackground(new java.awt.Color(217, 217, 217));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/banner_1.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/icon/banner_1.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 10, 770, 230));
 
         javax.swing.GroupLayout dashboardViewLayout = new javax.swing.GroupLayout(dashboardView);
@@ -206,7 +205,7 @@ public class UserDashboard extends javax.swing.JFrame {
             .addGroup(dashboardViewLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         dashboardViewLayout.setVerticalGroup(
             dashboardViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +229,7 @@ public class UserDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_checkMemberBtnMouseExited
 
     private void checkMemberBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkMemberBtnActionPerformed
-        new UserCekRequest(name).setVisible(true);
+        new UserCekRequest(NAME).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_checkMemberBtnActionPerformed
 
@@ -261,7 +260,7 @@ public class UserDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_beliBarangMouseExited
 
     private void beliBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliBarangActionPerformed
-        new BeliBarangUser(name).setVisible(true);
+        new BeliBarangUser(NAME).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_beliBarangActionPerformed
 
@@ -274,12 +273,12 @@ public class UserDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBTNMouseExited
 
     private void logoutBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBTNActionPerformed
-        new LoginPage(name).setVisible(true);
+        new LoginPage(NAME).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_logoutBTNActionPerformed
 
     private void requestBarang(Connection con) {
-        String currentUsername = name; // ambil username asli sesuai login
+        String currentUsername = NAME;
 
         try {
             String namaBarang = JOptionPane.showInputDialog(this, "Masukkan nama barang:");
@@ -306,20 +305,33 @@ public class UserDashboard extends javax.swing.JFrame {
                 return;
             }
 
-            String sql = "INSERT INTO request_barang(username, nama_barang, jumlah) VALUES (?, ?, ?)";
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, currentUsername);
-            pst.setString(2, namaBarang);
-            pst.setInt(3, jumlah);
-
-            int inserted = pst.executeUpdate();
-            if (inserted > 0) {
-                JOptionPane.showMessageDialog(this, "Request barang berhasil dikirim!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Gagal mengirim request barang!", "Error", JOptionPane.ERROR_MESSAGE);
+            String cekBarangSql = "SELECT * FROM barang WHERE nama = ?";
+            try (PreparedStatement cekPst = con.prepareStatement(cekBarangSql)) {
+                cekPst.setString(1, namaBarang);
+                
+                try (ResultSet rs = cekPst.executeQuery()) {
+                    if (rs.next()) {
+                        JOptionPane.showMessageDialog(this, "Barang sudah tersedia di stok System.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        rs.close();
+                        cekPst.close();
+                        return;
+                    }
+                }
             }
-
-            pst.close();
+            
+            String sql = "INSERT INTO request_barang(username, nama_barang, jumlah) VALUES (?, ?, ?)";
+            try (PreparedStatement pst = con.prepareStatement(sql)) {
+                pst.setString(1, currentUsername);
+                pst.setString(2, namaBarang);
+                pst.setInt(3, jumlah);
+                
+                int inserted = pst.executeUpdate();
+                if (inserted > 0) {
+                    JOptionPane.showMessageDialog(this, "Request barang berhasil dikirim!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal mengirim request barang!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error database: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

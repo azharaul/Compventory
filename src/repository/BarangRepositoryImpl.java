@@ -1,13 +1,13 @@
 package repository;
-
 import java.awt.Component;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import service.DBConnectionService;
 
-public class Barang {
-
+public class BarangRepositoryImpl implements BarangRepository{
+    
+    @Override
     public void showTableListBarang(JTable table, Connection conn) {
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
@@ -49,7 +49,8 @@ public class Barang {
         }
     }
     
-    public void tambahBarangStock(Component parentComponent, JTable table) {
+    @Override
+    public void tambahBarangStock(Component parentComponent, JTable table, String username) {
         String namaBarang = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
         if (namaBarang == null || namaBarang.isBlank()) {
             JOptionPane.showMessageDialog(parentComponent, "Nama barang tidak boleh kosong!");
@@ -70,20 +71,34 @@ public class Barang {
             return;
         }
 
-        try (Connection conn = DBConnectionService.getConnection()) {
+        Connection conn = null;
+        try {
+            conn = DBConnectionService.getConnection();
             conn.setAutoCommit(false);
 
             int barangId = -1;
-            String sqlCariId = "SELECT id FROM barang WHERE nama = ?";
+            int hargaBarang = 0;
+
+            String sqlCariId = "SELECT id, harga FROM barang WHERE nama = ?";
             try (PreparedStatement psCari = conn.prepareStatement(sqlCariId)) {
                 psCari.setString(1, namaBarang);
                 ResultSet rs = psCari.executeQuery();
                 if (rs.next()) {
                     barangId = rs.getInt("id");
+                    hargaBarang = rs.getInt("harga");
                 } else {
                     JOptionPane.showMessageDialog(parentComponent, "Barang tidak ditemukan!");
                     return;
                 }
+            }
+
+            int totalUangKeluar = hargaBarang * jumlahMasuk;
+            int saldoSekarang = new KeuanganRepositoryImpl().getSaldo();
+
+            if (saldoSekarang < totalUangKeluar) {
+                JOptionPane.showMessageDialog(parentComponent, "Saldo tidak mencukupi untuk menambah stok!\n" +
+                    "Saldo saat ini: " + saldoSekarang + "\nDibutuhkan: " + totalUangKeluar);
+                return;
             }
 
             String insertMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES (?, ?, NOW())";
@@ -109,6 +124,9 @@ public class Barang {
                 }
             }
 
+            catatTransaksiKeuangan("pengeluaran", totalUangKeluar,
+                "Penambahan stok barang: " + namaBarang + " sebanyak " + jumlahMasuk, username, 2);
+
             conn.commit();
             showTableListBarang(table, DBConnectionService.getConnection());
             JOptionPane.showMessageDialog(parentComponent, "Barang berhasil ditambahkan!");
@@ -116,15 +134,22 @@ public class Barang {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(parentComponent, "Kesalahan database: " + e.getMessage());
             try {
-                DBConnectionService.getConnection().rollback();
+                if (conn != null) conn.rollback();
             } catch (SQLException rollbackEx) {
                 JOptionPane.showMessageDialog(parentComponent, "Gagal rollback: " + rollbackEx.getMessage());
             }
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(parentComponent, "Gagal menutup koneksi: " + e.getMessage());
+            }
         }
     }
-
     
-    public void KurangiStockBarang(Component parentComponent, JTable table) {
+    
+    @Override
+    public void KurangiStockBarang(Component parentComponent, JTable table, String username) {
         String namaBarang = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
         if (namaBarang == null || namaBarang.isBlank()) {
             JOptionPane.showMessageDialog(parentComponent, "Nama barang tidak boleh kosong!");
@@ -151,12 +176,14 @@ public class Barang {
             conn.setAutoCommit(false);
 
             int barangId = -1;
-            String sqlCariId = "SELECT id FROM barang WHERE nama = ?";
-            try (PreparedStatement psCari = conn.prepareStatement(sqlCariId)) {
+            int hargaBarang = 0;
+            String sqlCari = "SELECT id, harga FROM barang WHERE nama = ?";
+            try (PreparedStatement psCari = conn.prepareStatement(sqlCari)) {
                 psCari.setString(1, namaBarang);
                 ResultSet rs = psCari.executeQuery();
                 if (rs.next()) {
                     barangId = rs.getInt("id");
+                    hargaBarang = rs.getInt("harga");
                 } else {
                     JOptionPane.showMessageDialog(parentComponent, "Barang tidak ditemukan!");
                     return;
@@ -195,6 +222,9 @@ public class Barang {
                 psUpdate.executeUpdate();
             }
 
+            int totalUangKeluar = hargaBarang * jumlahKeluar;
+            catatTransaksiKeuangan("pemasukan", totalUangKeluar, "Pengurangan stok barang: " + namaBarang + " sebanyak " + jumlahKeluar, username, 1);
+
             conn.commit();
             showTableListBarang(table, DBConnectionService.getConnection());
             JOptionPane.showMessageDialog(parentComponent, "Barang berhasil dikurangi!");
@@ -215,6 +245,8 @@ public class Barang {
         }
     }
     
+    
+    @Override
     public void tambahBarangBaru(Component parentComponent, JTable table) {
         String nama = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
 
@@ -279,7 +311,7 @@ public class Barang {
                     return;
                 }
             }
-
+            
             String insertStok = "INSERT INTO stok (barang_id, jumlah) VALUES (?, ?)";
             try (PreparedStatement psStok = conn.prepareStatement(insertStok)) {
                 psStok.setInt(1, barangId);
@@ -304,6 +336,8 @@ public class Barang {
         }
     }
     
+    
+    @Override
     public void lihatRiwayatBarang(JTable table, Component parentComponent, JButton button, JButton button2) {
         String namaBarang = JOptionPane.showInputDialog(parentComponent, "Masukkan nama barang:");
         if (namaBarang == null || namaBarang.isBlank()) {
@@ -379,7 +413,9 @@ public class Barang {
         }
     }
     
-    public void userBeliBarang(JTable table, Connection conn) {
+    
+    @Override
+    public void userBeliBarang(JTable table, Connection conn, String username) {
         int selectedRow = table.getSelectedRow();
 
         if (selectedRow == -1) {
@@ -387,7 +423,7 @@ public class Barang {
             return;
         }
 
-        String namaBarang = table.getValueAt(selectedRow, 0).toString(); // kolom Nama Barang
+        String namaBarang = table.getValueAt(selectedRow, 0).toString();
         int harga = Integer.parseInt(table.getValueAt(selectedRow, 1).toString());
         int stok = Integer.parseInt(table.getValueAt(selectedRow, 2).toString());
 
@@ -456,16 +492,59 @@ public class Barang {
                 ps.executeUpdate();
             }
 
+            catatTransaksiKeuangan("pemasukan", totalHarga,
+                "Pembelian barang \"" + namaBarang + "\" sebanyak " + jumlah + " oleh user \"" + username + "\"",
+                username, 1);
+
             conn.commit();
             JOptionPane.showMessageDialog(null, "Pembelian berhasil.\nTotal: Rp" + totalHarga);
-            table.setValueAt(stok - jumlah, selectedRow, 2); 
+            table.setValueAt(stok - jumlah, selectedRow, 2);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Kesalahan: " + e.getMessage());
             try {
                 conn.rollback();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Rollback Gagal" + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Rollback Gagal: " + ex.getMessage());
             }
+        }
+    }
+    
+    @Override
+    public void catatTransaksiKeuangan(String jenis, int jumlah, String keterangan, String username, int status) {
+        String sql = "INSERT INTO transaksi_keuangan (jenis, jumlah, keterangan, username) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DBConnectionService.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, jenis); 
+                ps.setInt(2, jumlah);
+                ps.setString(3, keterangan);
+
+                if (username != null && !username.isBlank()) {
+                    ps.setString(4, username);
+                } else {
+                    ps.setNull(4, java.sql.Types.VARCHAR);
+                }
+                
+                if(status == 1) {
+                    KeuanganRepository.tambahSaldo(jumlah);
+                } else if(status == 2) {
+                    KeuanganRepository.kurangiSaldo(jumlah);
+                }
+                
+                ps.executeUpdate();
+                conn.commit();
+
+                System.out.println("Transaksi berhasil dicatat: jenis=" + jenis + ", jumlah=" + jumlah + ", oleh user=" + username);
+
+            } catch (SQLException e) {
+                conn.rollback();
+                System.out.println("Gagal mencatat transaksi: " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Koneksi database gagal: " + e.getMessage());
         }
     }
 }

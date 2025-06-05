@@ -1,6 +1,5 @@
 package view;
-
-import repository.Barang;
+import repository.BarangRepositoryImpl;
 import service.DBConnectionService;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
@@ -8,7 +7,9 @@ import java.sql.SQLException;
 
 public class LihatBarangAdmin extends javax.swing.JFrame {
     private String name;
-    
+    public LihatBarangAdmin(){
+        initComponents();
+    }
     public LihatBarangAdmin(String name) {
         
         initComponents();
@@ -16,7 +17,7 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
 
         try {
             Connection conn = DBConnectionService.getConnection();
-            Barang barangRepo = new Barang();
+            BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
             barangRepo.showTableListBarang(jTable1, conn);
             
         } catch (SQLException e) {
@@ -175,17 +176,17 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kurangiStokBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kurangiStokBtnActionPerformed
-        Barang barangRepo = new Barang();
-        barangRepo.KurangiStockBarang(this, jTable1);
+        BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
+        barangRepo.KurangiStockBarang(this, jTable1, name);
     }//GEN-LAST:event_kurangiStokBtnActionPerformed
 
     private void tambahStokBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahStokBtnActionPerformed
-        Barang barangRepo = new Barang();
-        barangRepo.tambahBarangStock(this, jTable1);
+        BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
+        barangRepo.tambahBarangStock(this, jTable1, name);
     }//GEN-LAST:event_tambahStokBtnActionPerformed
 
     private void barangBaruBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barangBaruBtnActionPerformed
-        Barang barangRepo = new Barang();
+        BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
         barangRepo.tambahBarangBaru(this, jTable1);
     }//GEN-LAST:event_barangBaruBtnActionPerformed
 
@@ -196,47 +197,34 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
 
     private void barangBaruBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barangBaruBtnMouseEntered
         barangBaruBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_barangBaruBtnMouseEntered
 
     private void barangBaruBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barangBaruBtnMouseExited
-        // TODO add your handling code here:
         barangBaruBtn.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_barangBaruBtnMouseExited
 
     private void kurangiStokBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kurangiStokBtnMouseEntered
-        // TODO add your handling code here:
         kurangiStokBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_kurangiStokBtnMouseEntered
 
     private void kurangiStokBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kurangiStokBtnMouseExited
-        // TODO add your handling code here:
         kurangiStokBtn.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_kurangiStokBtnMouseExited
 
     private void tambahStokBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahStokBtnMouseEntered
-        // TODO add your handling code here:
         tambahStokBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_tambahStokBtnMouseEntered
 
     private void tambahStokBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahStokBtnMouseExited
-        // TODO add your handling code here:
         tambahStokBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_tambahStokBtnMouseExited
 
     private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-        // TODO add your handling code here:
         backBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_backBtnMouseEntered
 
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-        // TODO add your handling code here:
         backBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_backBtnMouseExited
 
 

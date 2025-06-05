@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
-
 import javax.swing.JOptionPane;
-import repository.Barang;
+import repository.BarangRepositoryImpl;
 import service.DBConnectionService;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,7 +16,7 @@ public class BeliBarangUser extends javax.swing.JFrame {
         initComponents();
         try {
             Connection conn = DBConnectionService.getConnection();
-            Barang barangRepo = new Barang();
+            BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
             barangRepo.showTableListBarang(jTable1, conn);
             
         } catch (SQLException e) {
@@ -134,11 +129,11 @@ public class BeliBarangUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void beliBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beliBtnActionPerformed
-        Barang barangRepo = new Barang();
+        BarangRepositoryImpl barangRepo = new BarangRepositoryImpl();
         Connection con;
         try {
             con = DBConnectionService.getConnection();
-            barangRepo.userBeliBarang(jTable1, con);
+            barangRepo.userBeliBarang(jTable1, con, name);
         } catch (SQLException ex) {
             Logger.getLogger(BeliBarangUser.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -146,31 +141,23 @@ public class BeliBarangUser extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.setVisible(false);
-        new UserDashboard(name).setVisible(true);
+        new userDashboard(name).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void beliBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beliBtnMouseEntered
-        // TODO add your handling code here:
         beliBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_beliBtnMouseEntered
 
     private void beliBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beliBtnMouseExited
-        // TODO add your handling code here:
         beliBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_beliBtnMouseExited
 
     private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-        // TODO add your handling code here:
         backBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_backBtnMouseEntered
 
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-        // TODO add your handling code here:
         backBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_backBtnMouseExited
 
 

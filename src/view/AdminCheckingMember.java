@@ -166,39 +166,27 @@ public class AdminCheckingMember extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void editRoleBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editRoleBtnMouseEntered
-        // TODO add your handling code here:
         editRoleBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_editRoleBtnMouseEntered
 
     private void editRoleBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editRoleBtnMouseExited
-        // TODO add your handling code here:
         editRoleBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_editRoleBtnMouseExited
 
     private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-        // TODO add your handling code here:
         backBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_backBtnMouseEntered
 
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-        // TODO add your handling code here:
         backBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_backBtnMouseExited
 
     private void deleteBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseEntered
-        // TODO add your handling code here:
         deleteBtn.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_deleteBtnMouseEntered
 
     private void deleteBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseExited
-        // TODO add your handling code here:
         deleteBtn.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_deleteBtnMouseExited
 
     public void showTableListMember(Connection conn) {

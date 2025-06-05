@@ -1,15 +1,9 @@
 package view;
-import view.*;
-import javax.swing.JTable;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import service.CekRequestServiceImpl;
 import service.DBConnectionService;
 
 public class UserCekRequest extends javax.swing.JFrame {
@@ -21,52 +15,13 @@ public class UserCekRequest extends javax.swing.JFrame {
         Connection con;
         try {
             con = DBConnectionService.getConnection();
-            ShowRequestUser(con, jTable1, name);
+            new CekRequestServiceImpl().ShowRequestUser(con, jTable1, name);
         } catch (SQLException ex) {
             Logger.getLogger(BeliBarangUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void ShowRequestUser(Connection conn, JTable table, String username) {
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object[][]{},
-            new String[]{"Username", "Nama Barang", "Jumlah Barang", "Status", "Approved By"}
-        ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        });
-
-        DefaultTableModel tb = (DefaultTableModel) table.getModel();
-        tb.setRowCount(0);
-
-        table.getTableHeader().setReorderingAllowed(false);
-        table.getTableHeader().setResizingAllowed(false);
-        table.setRowSelectionAllowed(true);
-        table.setColumnSelectionAllowed(false);
-        table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        String sql = "SELECT username, nama_barang, jumlah, status, IFNULL(approved_by, '-') AS approved_by " +
-                     "FROM request_barang WHERE username = ? ORDER BY tanggal_request DESC";
-
-        try (PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setString(1, username);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Object[] row = {
-                    rs.getString("username"),
-                    rs.getString("nama_barang"),
-                    rs.getInt("jumlah"),
-                    rs.getString("status"),
-                    rs.getString("approved_by")
-                };
-                tb.addRow(row);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal memuat data request barang: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -148,21 +103,16 @@ public class UserCekRequest extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.setVisible(false);
-        new UserDashboard(name).setVisible(true);
+        new userDashboard(name).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void backBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseEntered
-        // TODO add your handling code here:
-                backBtn.setForeground(new java.awt.Color(25, 143, 216));
-
+        backBtn.setForeground(new java.awt.Color(25, 143, 216));
     }//GEN-LAST:event_backBtnMouseEntered
 
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
-        // TODO add your handling code here:
-                backBtn.setForeground(java.awt.Color.black);
-
+        backBtn.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_backBtnMouseExited
-
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

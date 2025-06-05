@@ -1,21 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
+import repository.AkunRepositoryImpl;
+import service.AudioService;
 
-/**
- *
- * @author auliazhar
- */
 public class AdminDashboard extends javax.swing.JFrame {
     private String name;
+    AkunRepositoryImpl akun = new AkunRepositoryImpl();
     
-    public AdminDashboard(String name) {
-        this.name = name;;
+    public AdminDashboard(){
         initComponents();
     }
-
+    
+    public AdminDashboard(String name) {
+        this.name = name;
+        String role = akun.getRole(name);
+        initComponents();
+   
+        AudioService audio = new AudioService();  // new AudioAdmin(); 
+        audio.play(role);
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,7 +29,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         sayHi = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        menu = new javax.swing.JPanel();
+        laporanKeuangan = new javax.swing.JPanel();
         checkMemberBtn = new javax.swing.JButton();
         historyBtn = new javax.swing.JButton();
         logoutBTN = new javax.swing.JButton();
@@ -37,6 +41,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cekRequest = new javax.swing.JButton();
+        cekRequest1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("(Admin)Dashboard Menu");
@@ -60,7 +65,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel1.add(sayHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 520, -1));
 
         jLabel1.setBackground(new java.awt.Color(217, 217, 217));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/banner_1.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/icon/banner_1.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 10, 770, 230));
 
         javax.swing.GroupLayout dashboardViewLayout = new javax.swing.GroupLayout(dashboardView);
@@ -81,8 +86,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         getContentPane().add(dashboardView, java.awt.BorderLayout.CENTER);
 
-        menu.setBackground(new java.awt.Color(59, 73, 93));
-        menu.setPreferredSize(new java.awt.Dimension(180, 574));
+        laporanKeuangan.setBackground(new java.awt.Color(59, 73, 93));
+        laporanKeuangan.setPreferredSize(new java.awt.Dimension(180, 574));
 
         checkMemberBtn.setBackground(new java.awt.Color(255, 255, 255));
         checkMemberBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -127,7 +132,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         logoutBTN.setForeground(java.awt.Color.black);
         logoutBTN.setText("Logout");
         logoutBTN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        logoutBTN.setPreferredSize(new java.awt.Dimension(76, 27));
         logoutBTN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 logoutBTNMouseEntered(evt);
@@ -169,7 +173,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel3.setText("COMPVENTORY");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 210, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/54b85941-cad8-4986-9248-efd5fded01e5 (3).png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/icon/54b85941-cad8-4986-9248-efd5fded01e5 (3).png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 0, 60, 50));
 
         jPanel3.setBackground(new java.awt.Color(59, 73, 93));
@@ -181,7 +185,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel5.setText("Dashboard");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/HOME_ICON.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/icon/HOME_ICON.png"))); // NOI18N
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 10, 60, 30));
 
         cekRequest.setBackground(new java.awt.Color(255, 255, 255));
@@ -203,28 +207,48 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
-        menu.setLayout(menuLayout);
-        menuLayout.setHorizontalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createSequentialGroup()
+        cekRequest1.setBackground(new java.awt.Color(255, 255, 255));
+        cekRequest1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        cekRequest1.setForeground(new java.awt.Color(0, 0, 0));
+        cekRequest1.setText("Laporan Keuangan");
+        cekRequest1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cekRequest1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cekRequest1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cekRequest1MouseExited(evt);
+            }
+        });
+        cekRequest1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cekRequest1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout laporanKeuanganLayout = new javax.swing.GroupLayout(laporanKeuangan);
+        laporanKeuangan.setLayout(laporanKeuanganLayout);
+        laporanKeuanganLayout.setHorizontalGroup(
+            laporanKeuanganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(laporanKeuanganLayout.createSequentialGroup()
+                .addGroup(laporanKeuanganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(laporanKeuanganLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(laporanKeuanganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(cekRequest1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(checkMemberBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoutBTN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(historyBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addComponent(viewItemBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cekRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
-        menuLayout.setVerticalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
+        laporanKeuanganLayout.setVerticalGroup(
+            laporanKeuanganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, laporanKeuanganLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,12 +260,14 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(checkMemberBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cekRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cekRequest1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
                 .addComponent(logoutBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        getContentPane().add(menu, java.awt.BorderLayout.LINE_START);
+        getContentPane().add(laporanKeuangan, java.awt.BorderLayout.LINE_START);
 
         pack();
         setLocationRelativeTo(null);
@@ -300,12 +326,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_checkMemberBtnMouseEntered
 
     private void cekRequestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cekRequestMouseEntered
-        // TODO add your handling code here:
         cekRequest.setForeground(new java.awt.Color(25, 143, 216));
     }//GEN-LAST:event_cekRequestMouseEntered
 
     private void cekRequestMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cekRequestMouseExited
-        // TODO add your handling code here:
         cekRequest.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_cekRequestMouseExited
 
@@ -314,10 +338,22 @@ public class AdminDashboard extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_cekRequestActionPerformed
 
+    private void cekRequest1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cekRequest1MouseEntered
+        cekRequest1.setForeground(new java.awt.Color(25, 143, 216));
+    }//GEN-LAST:event_cekRequest1MouseEntered
 
+    private void cekRequest1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cekRequest1MouseExited
+        cekRequest1.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_cekRequest1MouseExited
+
+    private void cekRequest1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cekRequest1ActionPerformed
+        this.setVisible(false);
+        new AdminCekKeuangan(name).setVisible(true);
+    }//GEN-LAST:event_cekRequest1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cekRequest;
+    private javax.swing.JButton cekRequest1;
     private javax.swing.JButton checkMemberBtn;
     private javax.swing.JPanel dashboardView;
     private javax.swing.JButton historyBtn;
@@ -330,8 +366,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel laporanKeuangan;
     private javax.swing.JButton logoutBTN;
-    private javax.swing.JPanel menu;
     private javax.swing.JLabel sayHi;
     private javax.swing.JButton viewItemBtn;
     // End of variables declaration//GEN-END:variables

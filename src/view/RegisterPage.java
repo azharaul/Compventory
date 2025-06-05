@@ -119,7 +119,7 @@ public class RegisterPage extends javax.swing.JFrame {
         });
         getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 40, -1));
 
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/background/registerBackground.png"))); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/background/registerBackground.png"))); // NOI18N
         Background.setText("jLabel1");
         getContentPane().add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
@@ -270,7 +270,7 @@ public class RegisterPage extends javax.swing.JFrame {
 
     private void loginLink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLink1MouseClicked
 
-        new LoginPage("t").setVisible(true);
+        new LoginPage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_loginLink1MouseClicked
 
@@ -283,18 +283,13 @@ public class RegisterPage extends javax.swing.JFrame {
     }//GEN-LAST:event_loginLink1MouseExited
 
     private void registerButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseEntered
-        // TODO add your handling code here:
         registerButton.setForeground(new java.awt.Color(25, 143, 216));
-
     }//GEN-LAST:event_registerButtonMouseEntered
 
     private void registerButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseExited
-        // TODO add your handling code here:
         registerButton.setForeground(java.awt.Color.black);
-
     }//GEN-LAST:event_registerButtonMouseExited
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
