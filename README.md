@@ -3,7 +3,7 @@ Mata kuliah: Pemrograman Berorientasi Objek
 Dosen Pengampu: Herika Hayurani
 
 Kelompok [HTP DEVELOPER]:
-[Zild Jian X To], [A], [1402024054]
+[Zild Jian X To], [A], [1402024054]/n
 [Aditnya Wijaya Putra], [A], [1402024004]
 [Azhar Aulia Priatna], [A], [1402024013]
 
