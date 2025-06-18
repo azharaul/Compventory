@@ -10,4 +10,4 @@ Kelompok [HTP DEVELOPER]:
 Berkas ini menjelaskan kelengkapan berkas proyek akhir kami yang berjudul [Compventory]. Berkas terdiri dari:
 File database sql dengan nama database: [inventorydb]
 Source code project [NetBeans]
-Tautan Repository GitHub: [Tautan GitHub]![image](https://github.com/azharaul/Compventory)
+Tautan Repository GitHub: [Tautan GitHub]!(https://github.com/azharaul/Compventory)
