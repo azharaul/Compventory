@@ -19,6 +19,6 @@
 Berkas ini menjelaskan kelengkapan berkas proyek akhir kami yang berjudul **Compventory**.  
 Berkas terdiri dari:  
 - File database SQL dengan nama database: `inventorydb`  
-- Source code project (NetBeans)  
+- Code editor (NetBeans)  
 - Tautan Repository GitHub: [Tautan GitHub](https://github.com/yandevxxx/Compventory.main)
 
