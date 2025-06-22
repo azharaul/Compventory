@@ -1,6 +1,6 @@
 # Compventory  
 **Mata kuliah:** Pemrograman Berorientasi Objek  
-**Dosen Pengampu:** Herika Hayurani, S.Kom., M.Kom
+**Dosen Pengampu:** Herika Hayurani, S.Kom., M.Kom.
 
 ## Kelompok [HTP DEVELOPER]  
 - **Nama:** Zild Jian X To  
