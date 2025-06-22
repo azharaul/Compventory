@@ -11,7 +11,8 @@ import javax.swing.JTable;
 
 /**
  *
- * @author auliazhar
+ * @author Zildjian XTO
+ * @author Azhar Aulia
  */
 public interface BarangRepository {
 

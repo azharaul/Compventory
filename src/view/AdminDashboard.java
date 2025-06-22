@@ -4,7 +4,7 @@ import service.AudioService;
 
 /**
  *
- * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class AdminDashboard extends javax.swing.JFrame {
     private String name;

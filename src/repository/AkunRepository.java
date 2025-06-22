@@ -3,6 +3,7 @@ package repository;
 /**
  *
  * @author Zildjian XTO
+ * @author Azhar Aulia
  */
 public interface AkunRepository {
 

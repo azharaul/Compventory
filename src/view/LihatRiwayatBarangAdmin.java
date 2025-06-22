@@ -7,7 +7,7 @@ import service.DBConnectionService;
 
 /**
  *
- * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
 

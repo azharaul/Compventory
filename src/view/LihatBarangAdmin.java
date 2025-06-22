@@ -8,6 +8,7 @@ import java.sql.SQLException;
 /**
  *
  * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class LihatBarangAdmin extends javax.swing.JFrame {
     private String name;

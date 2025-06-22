@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class BeliBarangUser extends javax.swing.JFrame {
     

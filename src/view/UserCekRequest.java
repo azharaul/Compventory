@@ -9,6 +9,7 @@ import service.DBConnectionService;
 /**
  *
  * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class UserCekRequest extends javax.swing.JFrame {
     private String name;

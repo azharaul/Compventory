@@ -10,7 +10,7 @@ import service.KeuanganServiceImpl;
 
 /**
  *
- * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class AdminCekKeuangan extends javax.swing.JFrame {
     private String name;

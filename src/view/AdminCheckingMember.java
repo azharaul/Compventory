@@ -11,6 +11,7 @@ import service.DBConnectionService;
 /**
  *
  * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class AdminCheckingMember extends javax.swing.JFrame {
 

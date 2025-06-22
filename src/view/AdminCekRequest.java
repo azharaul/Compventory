@@ -13,7 +13,7 @@ import service.CekRequestServiceImpl;
 
 /**
  *
- * @author Zildjian XTO
+* @author Aditya Wijaya
  */
 public class AdminCekRequest extends javax.swing.JFrame {
     private String name;

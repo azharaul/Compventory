@@ -8,6 +8,7 @@ import service.DBConnectionService;
 /**
  *
  * @author Zildjian XTO
+ * @author Azhar Aulia
  */
 public class BarangRepositoryImpl implements BarangRepository{
     

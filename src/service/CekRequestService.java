@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Zildjian XTO
+ * @author Azhar Aulia
  */
 public interface CekRequestService {
 

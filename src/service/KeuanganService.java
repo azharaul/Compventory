@@ -6,6 +6,7 @@ import javax.swing.JTable;
 /**
  *
  * @author Zildjian XTO
+ * @author Azhar Aulia
  */
 public interface KeuanganService {
 

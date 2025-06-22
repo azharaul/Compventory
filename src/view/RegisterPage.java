@@ -6,7 +6,7 @@ import java.awt.Color;
 
 /**
  *
- * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class RegisterPage extends javax.swing.JFrame {
 

@@ -11,7 +11,8 @@ import service.DBConnectionService;
 
 /**
  *
- * @author auliazhar
+ * @author Zildjian XTO
+ * @author Azhar Aulia
  */
 public interface KeuanganRepository {
 

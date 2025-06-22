@@ -9,6 +9,7 @@ import service.DBConnectionService;
 /**
  *
  * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class userDashboard extends javax.swing.JFrame {
     private final String NAME;

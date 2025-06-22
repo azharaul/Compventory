@@ -7,7 +7,7 @@ import service.AudioService;
 
 /**
  *
- * @author Zildjian XTO
+ * @author Aditya Wijaya
  */
 public class LoginPage extends javax.swing.JFrame {
 

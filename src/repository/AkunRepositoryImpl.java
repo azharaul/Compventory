@@ -9,7 +9,8 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Zildjian XTO
+* @author Zildjian XTO
+ * @author Azhar Aulia
  */
 public class AkunRepositoryImpl implements AkunRepository {
 
