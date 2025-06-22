@@ -4,8 +4,15 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class RegisterPage extends javax.swing.JFrame {
 
+    /**
+     *
+     */
     public RegisterPage() {
         initComponents();
     }
@@ -23,11 +30,13 @@ public class RegisterPage extends javax.swing.JFrame {
         usernameInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         loginLink1 = new javax.swing.JLabel();
+        perempuan = new javax.swing.JCheckBox();
+        lakilaki = new javax.swing.JCheckBox();
         Background = new javax.swing.JLabel();
         JPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("COMPVENTORY register page");
+        setTitle("Register Page");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -49,7 +58,7 @@ public class RegisterPage extends javax.swing.JFrame {
                 registerButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 390, 225, 35));
+        getContentPane().add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 400, 225, 35));
 
         passwordInput.setBackground(new java.awt.Color(255, 255, 255));
         passwordInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -58,7 +67,7 @@ public class RegisterPage extends javax.swing.JFrame {
                 passwordInputActionPerformed(evt);
             }
         });
-        getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 225, 35));
+        getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 225, 35));
 
         confirmPwInput.setBackground(new java.awt.Color(255, 255, 255));
         confirmPwInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -67,25 +76,25 @@ public class RegisterPage extends javax.swing.JFrame {
                 confirmPwInputActionPerformed(evt);
             }
         });
-        getContentPane().add(confirmPwInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 225, 35));
+        getContentPane().add(confirmPwInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 290, 225, 35));
 
         passwordLabel.setBackground(new java.awt.Color(0, 0, 0));
         passwordLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel.setText("Confirm password :");
-        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 220, 20));
+        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 330, 220, 20));
 
         passwordLabel1.setBackground(new java.awt.Color(0, 0, 0));
         passwordLabel1.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel1.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel1.setText("Password :");
-        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 220, -1));
+        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 270, 220, -1));
 
         usernameLabel.setBackground(new java.awt.Color(0, 0, 0));
         usernameLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
         usernameLabel.setText("Username :");
-        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 220, -1));
+        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 170, 220, -1));
 
         usernameInput.setBackground(new java.awt.Color(255, 255, 255));
         usernameInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -94,12 +103,12 @@ public class RegisterPage extends javax.swing.JFrame {
                 usernameInputActionPerformed(evt);
             }
         });
-        getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 225, 35));
+        getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 190, 225, 35));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Already have an account?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 430, 210, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 450, 150, -1));
 
         loginLink1.setBackground(new java.awt.Color(0, 0, 0));
         loginLink1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
@@ -117,7 +126,17 @@ public class RegisterPage extends javax.swing.JFrame {
                 loginLink1MouseExited(evt);
             }
         });
-        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 40, -1));
+        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 450, 40, -1));
+
+        perempuan.setBackground(new java.awt.Color(255, 255, 255));
+        perempuan.setForeground(new java.awt.Color(0, 0, 0));
+        perempuan.setText("Female");
+        getContentPane().add(perempuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 240, -1, -1));
+
+        lakilaki.setBackground(new java.awt.Color(255, 255, 255));
+        lakilaki.setForeground(new java.awt.Color(0, 0, 0));
+        lakilaki.setText("Male");
+        getContentPane().add(lakilaki, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, -1, -1));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/background/registerBackground.png"))); // NOI18N
         Background.setText("jLabel1");
@@ -149,20 +168,37 @@ public class RegisterPage extends javax.swing.JFrame {
         String password = passwordInput.getText();
         String confirmPassword = confirmPwInput.getText();
 
-        
-        if(AkunRepositoryImpl.cekSimbolInput(username)){
+        if (username.length() < 4) {
             JOptionPane.showMessageDialog(null,
-                "Dalam input Username terdapat simbol yang tidak diperbolehkan",
-                "Registrasi",
+                "Username must be at least 4 characters long.",
+                "Username Input",
                 JOptionPane.ERROR_MESSAGE
             );
             return;
         }
-        
+
+        if (password.length() < 8) {
+            JOptionPane.showMessageDialog(null,
+                "Password must be at least 8 characters long.",
+                "Password Input",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (AkunRepositoryImpl.cekSimbolInput(username)) {
+            JOptionPane.showMessageDialog(null,
+                "Username contains invalid symbols.",
+                "Registration",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
         if (username.contains(" ")) {
             JOptionPane.showMessageDialog(null,
-                "Dalam input Username jangan gunakan spasi!",
-                "Registrasi",
+                "Username cannot contain spaces!",
+                "Registration",
                 JOptionPane.ERROR_MESSAGE
             );
             return;
@@ -170,15 +206,15 @@ public class RegisterPage extends javax.swing.JFrame {
 
         if (password.contains(" ")) {
             JOptionPane.showMessageDialog(null,
-                "Dalam input Password jangan gunakan spasi!",
-                "Registrasi",
+                "Password cannot contain spaces!",
+                "Registration",
                 JOptionPane.ERROR_MESSAGE
             );
             return;
         }
 
         boolean hasEmptyField = false;
-        StringBuilder errorMessage = new StringBuilder("Field berikut harus diisi:\n");
+        StringBuilder errorMessage = new StringBuilder("The following fields are required:\n");
 
         if (username.isEmpty()) {
             usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -198,7 +234,7 @@ public class RegisterPage extends javax.swing.JFrame {
 
         if (confirmPassword.isEmpty()) {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
-            errorMessage.append("- Konfirmasi Password\n");
+            errorMessage.append("- Confirm Password\n");
             hasEmptyField = true;
         } else {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -207,7 +243,7 @@ public class RegisterPage extends javax.swing.JFrame {
         if (hasEmptyField) {
             JOptionPane.showMessageDialog(null,
                 errorMessage.toString(),
-                "Registrasi",
+                "Registration",
                 JOptionPane.ERROR_MESSAGE
             );
             return;
@@ -216,8 +252,8 @@ public class RegisterPage extends javax.swing.JFrame {
         if (!confirmPassword.equals(password)) {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null,
-                "Konfirmasi password tidak sesuai!",
-                "Registrasi",
+                "Password confirmation does not match!",
+                "Registration",
                 JOptionPane.ERROR_MESSAGE
             );
             return;
@@ -225,32 +261,55 @@ public class RegisterPage extends javax.swing.JFrame {
             confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
-        AkunRepositoryImpl akun = new AkunRepositoryImpl();
+        String gender = null;
 
-        if (akun.isUsernameTaken(username)) {
-            usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+        if (lakilaki.isSelected() && perempuan.isSelected()) {
             JOptionPane.showMessageDialog(null,
-                "Username sudah digunakan!",
-                "Registrasi",
+                "Please select only one gender.",
+                "Registration",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        } else if (lakilaki.isSelected()) {
+            gender = "L";
+        } else if (perempuan.isSelected()) {
+            gender = "P";
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Please select your gender.",
+                "Registration",
                 JOptionPane.ERROR_MESSAGE
             );
             return;
         }
 
-        boolean sukses = akun.register(username, password, "user");
+        AkunRepositoryImpl akun = new AkunRepositoryImpl();
+
+        if (akun.isUsernameTaken(username)) {
+            usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            JOptionPane.showMessageDialog(null,
+                "Username is already taken!",
+                "Registration",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Panggil register dengan parameter GENDER
+        boolean sukses = akun.register(username, password, "user", gender);
 
         if (sukses) {
             JOptionPane.showMessageDialog(null,
-                "Registrasi berhasil!",
-                "Registrasi",
+                "Registration successful!",
+                "Registration",
                 JOptionPane.INFORMATION_MESSAGE
             );
             new LoginPage("t").setVisible(true);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null,
-                "Registrasi gagal!",
-                "Registrasi",
+                "Registration failed!",
+                "Registration",
                 JOptionPane.ERROR_MESSAGE
             );
         }
@@ -269,7 +328,6 @@ public class RegisterPage extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordInputActionPerformed
 
     private void loginLink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLink1MouseClicked
-
         new LoginPage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_loginLink1MouseClicked
@@ -290,16 +348,17 @@ public class RegisterPage extends javax.swing.JFrame {
         registerButton.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_registerButtonMouseExited
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JPanel JPanel;
     private javax.swing.JPasswordField confirmPwInput;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JCheckBox lakilaki;
     private javax.swing.JLabel loginLink1;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel passwordLabel1;
+    private javax.swing.JCheckBox perempuan;
     private javax.swing.JButton registerButton;
     private javax.swing.JTextField usernameInput;
     private javax.swing.JLabel usernameLabel;

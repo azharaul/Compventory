@@ -11,13 +11,24 @@ import java.util.logging.Logger;
 import service.DBConnectionService;
 import service.CekRequestServiceImpl;
 
-
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class AdminCekRequest extends javax.swing.JFrame {
     private String name;
     
-    AdminCekRequest(){
+    /**
+     *
+     */
+    public AdminCekRequest(){
         initComponents();
     }
+
+    /**
+     *
+     * @param name
+     */
     public AdminCekRequest(String name) {
         initComponents();
         this.name = name;
@@ -30,10 +41,15 @@ public class AdminCekRequest extends javax.swing.JFrame {
         }
     }
 
+    /**
+     *
+     * @param conn
+     * @param table
+     */
     public void ShowRequestUser(Connection conn, JTable table) {
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object[][]{},
-            new String[]{"Username", "Nama Barang", "Jumlah Barang", "Status", "Approved By"}
+            new String[]{"Username", "Item Name", "Item Quantity", "Status", "Approved By"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -66,7 +82,7 @@ public class AdminCekRequest extends javax.swing.JFrame {
                 tb.addRow(row);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal memuat data request barang: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to load item request data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -74,34 +90,35 @@ public class AdminCekRequest extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButton1 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         aproveBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
+        jRadioButton1.setText("jRadioButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("(Admin)Check Request");
-        setUndecorated(true);
-        setResizable(false);
+        setTitle("Request Items History");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(59, 73, 93));
         jPanel1.setForeground(new java.awt.Color(153, 204, 255));
+        jPanel1.setDoubleBuffered(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Username", "Nama Barang", "Jumlah Barang", "Status", "Aproved By"
+                "Username", "Item's Name", "Quantity", "Status", "Approved By"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        aproveBtn.setBackground(java.awt.Color.white);
         aproveBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        aproveBtn.setForeground(java.awt.Color.black);
-        aproveBtn.setText("Aproved Barang");
+        aproveBtn.setText("Approve the item");
         aproveBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aproveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -117,10 +134,8 @@ public class AdminCekRequest extends javax.swing.JFrame {
             }
         });
 
-        backBtn.setBackground(java.awt.Color.white);
         backBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        backBtn.setForeground(java.awt.Color.black);
-        backBtn.setText("Back Admin Menu");
+        backBtn.setText("Back To Admin Menu");
         backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -143,9 +158,9 @@ public class AdminCekRequest extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(aproveBtn)
+                .addComponent(aproveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(backBtn)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -159,16 +174,7 @@ public class AdminCekRequest extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -179,7 +185,7 @@ public class AdminCekRequest extends javax.swing.JFrame {
             new CekRequestServiceImpl().approveRequest(con, jTable1, name); 
             ShowRequestUser(con, jTable1); 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Koneksi gagal: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed Connection: " + ex.getMessage());
         }
     }//GEN-LAST:event_aproveBtnActionPerformed
 
@@ -203,128 +209,12 @@ public class AdminCekRequest extends javax.swing.JFrame {
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
         backBtn.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_backBtnMouseExited
-
-//    public void approveRequest(Connection conn, JTable table, String adminUsername) {
-//        int selectedRow = table.getSelectedRow();
-//
-//        if (selectedRow == -1) {
-//            JOptionPane.showMessageDialog(null, "Pilih request yang ingin di-approve!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//            return;
-//        }
-//
-//        String username = table.getValueAt(selectedRow, 0).toString();
-//        String namaBarang = table.getValueAt(selectedRow, 1).toString();
-//        int jumlahBarang = Integer.parseInt(table.getValueAt(selectedRow, 2).toString());
-//        String status = table.getValueAt(selectedRow, 3).toString();
-//
-//        if (!status.equalsIgnoreCase("pending")) {
-//            JOptionPane.showMessageDialog(null, "Request ini sudah di-" + status + ".", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-//            return;
-//        }
-//
-//        int confirm = JOptionPane.showConfirmDialog(null,
-//            "Yakin ingin menyetujui dan menambahkan barang \"" + namaBarang + "\" dari user \"" + username + "\"?",
-//            "Konfirmasi Approve",
-//            JOptionPane.YES_NO_OPTION);
-//
-//        if (confirm != JOptionPane.YES_OPTION) return;
-//
-//        try {
-//            conn.setAutoCommit(false);
-//
-//            String sql = "UPDATE request_barang SET status = 'approved', approved_by = ? " +
-//                         "WHERE username = ? AND nama_barang = ? AND status = 'pending'";
-//            try (PreparedStatement pst = conn.prepareStatement(sql)) {
-//                pst.setString(1, adminUsername);
-//                pst.setString(2, username);
-//                pst.setString(3, namaBarang);
-//                int updated = pst.executeUpdate();
-//                if (updated <= 0) {
-//                    conn.rollback();
-//                    JOptionPane.showMessageDialog(null, "Gagal approve request.");
-//                    return;
-//                }
-//            }
-//
-//            String hargaStr = JOptionPane.showInputDialog(null, "Masukkan harga untuk barang \"" + namaBarang + "\":");
-//            if (hargaStr == null || hargaStr.trim().isEmpty()) {
-//                conn.rollback();
-//                JOptionPane.showMessageDialog(null, "Harga tidak boleh kosong.");
-//                return;
-//            }
-//
-//            int harga = Integer.parseInt(hargaStr);
-//            int totalUangKeluar = harga * jumlahBarang;
-//
-//            int saldo = KeuanganRepositoryImpl.getSaldo();
-//            if (saldo < totalUangKeluar) {
-//                conn.rollback();
-//                JOptionPane.showMessageDialog(null, "Saldo tidak mencukupi untuk menyetujui request ini!\n" +
-//                    "Saldo saat ini: " + saldo + "\nDibutuhkan: " + totalUangKeluar);
-//                return;
-//            }
-//
-//            String deskripsi = JOptionPane.showInputDialog(null, "Masukkan deskripsi untuk barang \"" + namaBarang + "\":");
-//            if (deskripsi == null || deskripsi.trim().isEmpty()) {
-//                conn.rollback();
-//                JOptionPane.showMessageDialog(null, "Deskripsi tidak boleh kosong.");
-//                return;
-//            }
-//
-//            int barangId;
-//            String insertBarang = "INSERT INTO barang (nama, harga, deskripsi) VALUES (?, ?, ?)";
-//            try (PreparedStatement ps = conn.prepareStatement(insertBarang, Statement.RETURN_GENERATED_KEYS)) {
-//                ps.setString(1, namaBarang);
-//                ps.setInt(2, harga);
-//                ps.setString(3, deskripsi);
-//                ps.executeUpdate();
-//
-//                ResultSet generatedKeys = ps.getGeneratedKeys();
-//                if (generatedKeys.next()) {
-//                    barangId = generatedKeys.getInt(1);
-//                } else {
-//                    conn.rollback();
-//                    JOptionPane.showMessageDialog(null, "Gagal mendapatkan ID barang!");
-//                    return;
-//                }
-//            }
-//
-//            String insertStok = "INSERT INTO stok (barang_id, jumlah) VALUES (?, ?)";
-//            try (PreparedStatement psStok = conn.prepareStatement(insertStok)) {
-//                psStok.setInt(1, barangId);
-//                psStok.setInt(2, jumlahBarang);
-//                psStok.executeUpdate();
-//            }
-//
-//            String insertMasuk = "INSERT INTO barang_masuk (barang_id, jumlah, tanggal_masuk) VALUES (?, ?, NOW())";
-//            try (PreparedStatement psMasuk = conn.prepareStatement(insertMasuk)) {
-//                psMasuk.setInt(1, barangId);
-//                psMasuk.setInt(2, jumlahBarang);
-//                psMasuk.executeUpdate();
-//            }
-//
-//            BarangRepositoryImpl a = new BarangRepositoryImpl();
-//            a.catatTransaksiKeuangan("pengeluaran", totalUangKeluar,
-//                "Approve request barang \"" + namaBarang + "\" dari user \"" + username + "\" sebanyak " + jumlahBarang,
-//                adminUsername, 2);
-//
-//            conn.commit();
-//            JOptionPane.showMessageDialog(null, "Request disetujui dan barang berhasil ditambahkan ke stok.");
-//        } catch (SQLException | NumberFormatException ex) {
-//            try {
-//                conn.rollback();
-//            } catch (SQLException rollbackEx) {
-//            }
-//            JOptionPane.showMessageDialog(null, "Kesalahan: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
-
-
-    
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aproveBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

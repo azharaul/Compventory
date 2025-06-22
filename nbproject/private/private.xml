@@ -3,26 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/BarangRepositoryImpl.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/BarangRepository.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/KeuanganRepositoryImpl.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/DBConnectionService.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/KeuanganRepository.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/AdminCekKeuangan.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/KeuanganService.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/AdminCekRequest.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/KeuanganServiceImpl.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/CekRequestService.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/CekRequestServiceImpl.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/AdminDashboard.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/BeliBarangUser.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/UserCekRequest.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/userDashboard.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/AkunRepository.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/repository/AkunRepositoryImpl.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/entity/Compventory.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/service/AudioService.java</file>
-            <file>file:/D:/OneDrive/Documents/NetBeansProjects/Compventory/src/view/LoginPage.java</file>
+            <file>file:/C:/Users/Zildjian%20XTO/Documents/NetBeansProjects/Compventory-main/src/view/LihatBarangAdmin.java</file>
+            <file>file:/C:/Users/Zildjian%20XTO/Documents/NetBeansProjects/Compventory-main/src/view/AdminDashboard.java</file>
+            <file>file:/C:/Users/Zildjian%20XTO/Documents/NetBeansProjects/Compventory-main/src/service/AudioService.java</file>
         </group>
     </open-files>
 </project-private>

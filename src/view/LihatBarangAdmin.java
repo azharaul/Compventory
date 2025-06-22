@@ -5,11 +5,24 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class LihatBarangAdmin extends javax.swing.JFrame {
     private String name;
+
+    /**
+     *
+     */
     public LihatBarangAdmin(){
         initComponents();
     }
+
+    /**
+     *
+     * @param name
+     */
     public LihatBarangAdmin(String name) {
         
         initComponents();
@@ -21,7 +34,7 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
             barangRepo.showTableListBarang(jTable1, conn);
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menampilkan data barang: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed to display item data: " + e.getMessage());
         }
     }
 
@@ -40,20 +53,19 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
 
         jCheckBox1.setText("jCheckBox1");
 
-        setTitle("(Admin)View Item");
+        setTitle("View Item");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(59, 73, 93));
         jPanel1.setForeground(new java.awt.Color(153, 204, 255));
 
         jTable1.setBackground(new java.awt.Color(245, 245, 245));
-        jTable1.setForeground(java.awt.Color.black);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nama Barang", "Harga", "Stock", "Deskripsi"
+                "Item's name", "Price", "Stock", "Description"
             }
         ));
         jTable1.setGridColor(new java.awt.Color(221, 221, 221));
@@ -62,10 +74,8 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
-        kurangiStokBtn.setBackground(java.awt.Color.white);
         kurangiStokBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        kurangiStokBtn.setForeground(java.awt.Color.black);
-        kurangiStokBtn.setText("Kurangi Stock");
+        kurangiStokBtn.setText("Decrease Stock");
         kurangiStokBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         kurangiStokBtn.setPreferredSize(new java.awt.Dimension(76, 27));
         kurangiStokBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,10 +92,8 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
             }
         });
 
-        tambahStokBtn.setBackground(java.awt.Color.white);
         tambahStokBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        tambahStokBtn.setForeground(java.awt.Color.black);
-        tambahStokBtn.setText("Tambah Stock");
+        tambahStokBtn.setText("Add Stock");
         tambahStokBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tambahStokBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -101,10 +109,8 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
             }
         });
 
-        barangBaruBtn.setBackground(java.awt.Color.white);
         barangBaruBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        barangBaruBtn.setForeground(java.awt.Color.black);
-        barangBaruBtn.setText("Barang Baru");
+        barangBaruBtn.setText("New Item");
         barangBaruBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         barangBaruBtn.setPreferredSize(new java.awt.Dimension(76, 27));
         barangBaruBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,10 +127,8 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
             }
         });
 
-        backBtn.setBackground(java.awt.Color.white);
         backBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        backBtn.setForeground(java.awt.Color.black);
-        backBtn.setText("Back Admin Menu");
+        backBtn.setText("Back To Admin Menu");
         backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -151,8 +155,8 @@ public class LihatBarangAdmin extends javax.swing.JFrame {
                 .addComponent(kurangiStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(tambahStokBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                .addComponent(backBtn)
                 .addContainerGap())
             .addComponent(jScrollPane1)
         );

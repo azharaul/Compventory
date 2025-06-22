@@ -1,6 +1,6 @@
 # Compventory  
 **Mata kuliah:** Pemrograman Berorientasi Objek  
-**Dosen Pengampu:** Herika Hayurani  
+**Dosen Pengampu:** Herika Hayurani, S.Kom., M.Kom. 
 
 ## Kelompok [HTP DEVELOPER]  
 - **Nama:** Zild Jian X To  
@@ -20,5 +20,5 @@ Berkas ini menjelaskan kelengkapan berkas proyek akhir kami yang berjudul **Comp
 Berkas terdiri dari:  
 - File database SQL dengan nama database: `inventorydb`  
 - Source code project (NetBeans)  
-- Tautan Repository GitHub: [Tautan GitHub](https://github.com/azharaul/Compventory)
+- Tautan Repository GitHub: [Tautan GitHub](https://github.com/yandevxxx/Compventory.main)
 

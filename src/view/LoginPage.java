@@ -3,13 +3,30 @@ import repository.AkunRepositoryImpl;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import service.AudioService;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class LoginPage extends javax.swing.JFrame {
-    
-    private String name;
+
+    /**
+     *
+     */
+    public String name;
+   
+    /**
+     *
+     */
     public LoginPage(){
         initComponents();
     }
+
+    /**
+     *
+     * @param name
+     */
     public LoginPage(String name) {
         this.name = name;
         initComponents();
@@ -30,12 +47,9 @@ public class LoginPage extends javax.swing.JFrame {
         JPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("COMPVENTORY login page");
+        setTitle("Login Page");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        passwordInput.setBackground(new java.awt.Color(255, 255, 255));
-        passwordInput.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 225, 35));
 
         passwordLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -50,13 +64,14 @@ public class LoginPage extends javax.swing.JFrame {
         usernameLabel.setText("Username :");
         getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 220, -1));
 
-        usernameInput.setBackground(new java.awt.Color(255, 255, 255));
-        usernameInput.setForeground(new java.awt.Color(0, 0, 0));
+        usernameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameInputActionPerformed(evt);
+            }
+        });
         getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 240, 225, 35));
 
-        loginButton.setBackground(new java.awt.Color(255, 255, 255));
         loginButton.setFont(new java.awt.Font("JetBrains Mono NL", 1, 14)); // NOI18N
-        loginButton.setForeground(new java.awt.Color(0, 0, 0));
         loginButton.setText("Login");
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -76,7 +91,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         registerLink.setBackground(new java.awt.Color(0, 0, 0));
         registerLink.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
-        registerLink.setForeground(java.awt.Color.cyan);
+        registerLink.setForeground(java.awt.Color.white);
         registerLink.setText("Register");
         registerLink.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerLink.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,19 +140,37 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameInput.getText().trim();
         String password = passwordInput.getText().trim();
-        
-        if(AkunRepositoryImpl.cekSimbolInput(username)){
+
+        if (username.length() < 4) {
             JOptionPane.showMessageDialog(null,
-                "Dalam input Username terdapat simbol yang tidak diperbolehkan",
+                "Username must be at least 4 characters long.",
+                "Username Input",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (password.length() < 8) {
+            JOptionPane.showMessageDialog(null,
+                "Password must be at least 8 characters long.",
+                "Password Input",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (AkunRepositoryImpl.cekSimbolInput(username)) {
+            JOptionPane.showMessageDialog(null,
+                "Username contains invalid characters.",
                 "Login",
                 JOptionPane.ERROR_MESSAGE
             );
             return;
         }
-        
+
         if (username.contains(" ")) {
             JOptionPane.showMessageDialog(null,
-                "Dalam input Username jangan gunakan spasi!",
+                "Username cannot contain spaces.",
                 "Login",
                 JOptionPane.ERROR_MESSAGE
             );
@@ -146,7 +179,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         if (password.contains(" ")) {
             JOptionPane.showMessageDialog(null,
-                "Dalam input Password jangan gunakan spasi!",
+                "Password cannot contain spaces.",
                 "Login",
                 JOptionPane.ERROR_MESSAGE
             );
@@ -154,7 +187,7 @@ public class LoginPage extends javax.swing.JFrame {
         }
 
         boolean hasEmptyField = false;
-        StringBuilder errorMessage = new StringBuilder("Field berikut harus diisi:\n");
+        StringBuilder errorMessage = new StringBuilder("The following fields must be filled:\n");
 
         if (username.isEmpty()) {
             usernameInput.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -185,22 +218,22 @@ public class LoginPage extends javax.swing.JFrame {
 
         if (akun.login(username, password)) {
             String role = akun.getRole(username);
-            
 
             if (role.equalsIgnoreCase("admin")) {
                 new AdminDashboard(username).setVisible(true);
+                AudioService.play("Admin"); // gunakan versi static
             } else {
                 new userDashboard(username).setVisible(true);
+                AudioService.play("User");
             }
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null,
-                "Login gagal! Username atau password salah.",
+                "Login failed! Invalid username or password.",
                 "Login",
                 JOptionPane.ERROR_MESSAGE
             );
         }
-
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerLinkMouseClicked
@@ -223,6 +256,10 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseExited
         loginButton.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_loginButtonMouseExited
+
+    private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameInputActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package service;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,14 +11,22 @@ import repository.KeuanganRepositoryImpl;
 
 /**
  *
- * @author auliazhar
+ * @author Zildjian XTO
  */
 public class CekRequestServiceImpl implements CekRequestService{
+
+    /**
+     *
+     * @param conn
+     * @param table
+     * @param adminUsername
+     */
+    @Override
     public void approveRequest(Connection conn, JTable table, String adminUsername) {
         int selectedRow = table.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Pilih request yang ingin di-approve!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Select the request you want to approve!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -33,13 +36,13 @@ public class CekRequestServiceImpl implements CekRequestService{
         String status = table.getValueAt(selectedRow, 3).toString();
 
         if (!status.equalsIgnoreCase("pending")) {
-            JOptionPane.showMessageDialog(null, "Request ini sudah di-" + status + ".", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "This request has been-" + status + ".", "Information", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
         int confirm = JOptionPane.showConfirmDialog(null,
-            "Yakin ingin menyetujui dan menambahkan barang \"" + namaBarang + "\" dari user \"" + username + "\"?",
-            "Konfirmasi Approve",
+            "Are you sure you want to approve and add the item \"" + namaBarang + "\" by \"" + username + "\"?",
+            "Confirm your approval",
             JOptionPane.YES_NO_OPTION);
 
         if (confirm != JOptionPane.YES_OPTION) return;
@@ -56,15 +59,15 @@ public class CekRequestServiceImpl implements CekRequestService{
                 int updated = pst.executeUpdate();
                 if (updated <= 0) {
                     conn.rollback();
-                    JOptionPane.showMessageDialog(null, "Gagal approve request.");
+                    JOptionPane.showMessageDialog(null, "Failed to approve the request.");
                     return;
                 }
             }
 
-            String hargaStr = JOptionPane.showInputDialog(null, "Masukkan harga untuk barang \"" + namaBarang + "\":");
+            String hargaStr = JOptionPane.showInputDialog(null, "Input price for item \"" + namaBarang + "\":");
             if (hargaStr == null || hargaStr.trim().isEmpty()) {
                 conn.rollback();
-                JOptionPane.showMessageDialog(null, "Harga tidak boleh kosong.");
+                JOptionPane.showMessageDialog(null, "Price can't be empty.");
                 return;
             }
 
@@ -74,15 +77,15 @@ public class CekRequestServiceImpl implements CekRequestService{
             int saldo = new KeuanganRepositoryImpl().getSaldo();
             if (saldo < totalUangKeluar) {
                 conn.rollback();
-                JOptionPane.showMessageDialog(null, "Saldo tidak mencukupi untuk menyetujui request ini!\n" +
-                    "Saldo saat ini: " + saldo + "\nDibutuhkan: " + totalUangKeluar);
+                JOptionPane.showMessageDialog(null, "Cannot approve this request due to insufficient balance!\n" +
+                    "Current balance: " + saldo + "\nYou need: " + totalUangKeluar);
                 return;
             }
 
-            String deskripsi = JOptionPane.showInputDialog(null, "Masukkan deskripsi untuk barang \"" + namaBarang + "\":");
+            String deskripsi = JOptionPane.showInputDialog(null, "Input item description \"" + namaBarang + "\":");
             if (deskripsi == null || deskripsi.trim().isEmpty()) {
                 conn.rollback();
-                JOptionPane.showMessageDialog(null, "Deskripsi tidak boleh kosong.");
+                JOptionPane.showMessageDialog(null, "Description can't be empty.");
                 return;
             }
 
@@ -99,7 +102,7 @@ public class CekRequestServiceImpl implements CekRequestService{
                     barangId = generatedKeys.getInt(1);
                 } else {
                     conn.rollback();
-                    JOptionPane.showMessageDialog(null, "Gagal mendapatkan ID barang!");
+                    JOptionPane.showMessageDialog(null, "Failed to get Item ID!");
                     return;
                 }
             }
@@ -119,18 +122,18 @@ public class CekRequestServiceImpl implements CekRequestService{
             }
 
             BarangRepositoryImpl a = new BarangRepositoryImpl();
-            a.catatTransaksiKeuangan("pengeluaran", totalUangKeluar,
-                "Approve request barang \"" + namaBarang + "\" dari user \"" + username + "\" sebanyak " + jumlahBarang,
+            a.catatTransaksiKeuangan("Expense", totalUangKeluar,
+                "Approve request item \"" + namaBarang + "\" by \"" + username + "\" a total of " + jumlahBarang,
                 adminUsername, 2);
 
             conn.commit();
-            JOptionPane.showMessageDialog(null, "Request disetujui dan barang berhasil ditambahkan ke stok.");
+            JOptionPane.showMessageDialog(null, "Request Approved and item successfully added to stock.");
         } catch (SQLException | NumberFormatException ex) {
             try {
                 conn.rollback();
             } catch (SQLException rollbackEx) {
             }
-            JOptionPane.showMessageDialog(null, "Kesalahan: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

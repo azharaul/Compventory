@@ -7,10 +7,18 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class BeliBarangUser extends javax.swing.JFrame {
     
     private String name;
     
+    /**
+     *
+     * @param name
+     */
     public BeliBarangUser(String name) {
         this.name = name;
         initComponents();
@@ -20,7 +28,7 @@ public class BeliBarangUser extends javax.swing.JFrame {
             barangRepo.showTableListBarang(jTable1, conn);
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menampilkan data barang: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed to show item data: " + e.getMessage());
         }
     }
 
@@ -35,27 +43,25 @@ public class BeliBarangUser extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Purchase Item");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(59, 73, 93));
         jPanel1.setForeground(new java.awt.Color(153, 204, 255));
 
         jTable1.setBackground(new java.awt.Color(245, 245, 245));
-        jTable1.setForeground(java.awt.Color.black);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nama Barang", "Harga", "Stock", "Deskripsi"
+                "Item's Name", "Price", "Stock", "Description"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        beliBtn.setBackground(java.awt.Color.white);
         beliBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        beliBtn.setForeground(java.awt.Color.black);
-        beliBtn.setText("Beli Barang");
+        beliBtn.setText("Buy the item");
         beliBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         beliBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -71,10 +77,8 @@ public class BeliBarangUser extends javax.swing.JFrame {
             }
         });
 
-        backBtn.setBackground(java.awt.Color.white);
         backBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        backBtn.setForeground(java.awt.Color.black);
-        backBtn.setText("Back User Menu");
+        backBtn.setText("Back To User Menu");
         backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -159,7 +163,6 @@ public class BeliBarangUser extends javax.swing.JFrame {
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
         backBtn.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_backBtnMouseExited
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

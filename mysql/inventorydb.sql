@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2025 at 09:11 PM
+-- Generation Time: Jun 22, 2025 at 01:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,6 +32,7 @@ CREATE TABLE `akun` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('admin','user') NOT NULL DEFAULT 'user',
+  `gender` enum('L','P') DEFAULT NULL,
   `Tanggal_Register` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -39,9 +40,9 @@ CREATE TABLE `akun` (
 -- Dumping data for table `akun`
 --
 
-INSERT INTO `akun` (`id`, `username`, `password`, `role`, `Tanggal_Register`) VALUES
-(8, 'jian', '7c89187f8884524fa3226f25ecac2116520620e00c5c32464f48d00dda0ddc56', 'admin', '2025-05-25 07:16:20'),
-(9, 'jian1', '2b40731be4d7c7533bc6d0b18a7a7a13e3d1080e960719c216bf406991985f3c', 'user', '2025-05-25 11:28:26');
+INSERT INTO `akun` (`id`, `username`, `password`, `role`, `gender`, `Tanggal_Register`) VALUES
+(20, 'jian', 'a7d23a7bb9f6d3401cb9f174cdf6b456920cb99fd2f9587dfb400338a8ec146d', 'admin', 'L', '2025-06-22 18:29:13'),
+(21, 'jian1', 'a7d23a7bb9f6d3401cb9f174cdf6b456920cb99fd2f9587dfb400338a8ec146d', 'user', 'P', '2025-06-22 18:37:12');
 
 -- --------------------------------------------------------
 
@@ -61,10 +62,16 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `nama`, `harga`, `deskripsi`) VALUES
-(20, 'Headset', 40000, 'Ngebas Banget Coy'),
-(21, 'Keyboard Ajazz', 200000, 'Keren Banget'),
-(22, 'Mouse Logitech G304', 4000000, 'Kece Banget'),
-(23, 'Switch Red', 3500, 'Renyah');
+(28, 'Mouse Wireless Logitech', 150000, 'Mouse wireless USB.'),
+(29, 'Keyboard Mechanical RGB', 450000, 'Keyboard RGB mekanik.'),
+(30, 'Monitor LED 24 Inch', 1750000, 'Monitor LED 24 inch.'),
+(31, 'Flashdisk 32GB', 60000, 'USB flashdisk 32GB.'),
+(32, 'Harddisk Eksternal 1TB', 750000, 'HDD eksternal 1TB.'),
+(33, 'Charger Laptop Universal', 120000, 'Charger laptop universal.'),
+(34, 'Speaker Bluetooth Mini', 85000, 'Speaker Bluetooth kecil.'),
+(35, 'Headset Gaming', 275000, 'Headset untuk gaming.'),
+(36, 'Webcam HD 720p', 95000, 'Webcam HD 720p.'),
+(37, 'Kipas Laptop Cooling Pad', 65000, 'Cooling pad laptop.');
 
 -- --------------------------------------------------------
 
@@ -76,19 +83,9 @@ CREATE TABLE `barang_keluar` (
   `id` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `tanggal_keluar` datetime NOT NULL DEFAULT current_timestamp()
+  `username` varchar(50) DEFAULT NULL,
+  `tanggal_keluar` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `barang_keluar`
---
-
-INSERT INTO `barang_keluar` (`id`, `barang_id`, `jumlah`, `tanggal_keluar`) VALUES
-(12, 22, 1, '2025-05-25 07:21:10'),
-(13, 20, 5, '2025-05-25 11:28:50'),
-(14, 20, 5, '2025-05-25 11:29:31'),
-(15, 23, 3, '2025-05-25 11:31:10'),
-(16, 21, 1, '2025-05-26 01:36:28');
 
 -- --------------------------------------------------------
 
@@ -100,23 +97,9 @@ CREATE TABLE `barang_masuk` (
   `id` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `tanggal_masuk` datetime NOT NULL DEFAULT current_timestamp()
+  `username` varchar(50) DEFAULT NULL,
+  `tanggal_masuk` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `barang_masuk`
---
-
-INSERT INTO `barang_masuk` (`id`, `barang_id`, `jumlah`, `tanggal_masuk`) VALUES
-(43, 20, 0, '2025-05-25 07:17:07'),
-(44, 21, 0, '2025-05-25 07:17:29'),
-(45, 22, 0, '2025-05-25 07:18:00'),
-(46, 20, 10, '2025-05-25 07:20:07'),
-(47, 21, 2, '2025-05-25 07:20:19'),
-(48, 22, 2, '2025-05-25 07:20:34'),
-(49, 23, 15, '2025-05-25 11:30:44'),
-(50, 23, 2, '2025-05-25 11:31:26'),
-(51, 20, 5, '2025-05-26 01:35:16');
 
 -- --------------------------------------------------------
 
@@ -134,7 +117,7 @@ CREATE TABLE `keuangan` (
 --
 
 INSERT INTO `keuangan` (`id`, `saldo`) VALUES
-(1, 50000000);
+(1, 500000);
 
 -- --------------------------------------------------------
 
@@ -144,20 +127,13 @@ INSERT INTO `keuangan` (`id`, `saldo`) VALUES
 
 CREATE TABLE `request_barang` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `nama_barang` varchar(100) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `tanggal_request` datetime NOT NULL DEFAULT current_timestamp(),
   `status` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
   `approved_by` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `request_barang`
---
-
-INSERT INTO `request_barang` (`id`, `username`, `nama_barang`, `jumlah`, `tanggal_request`, `status`, `approved_by`) VALUES
-(8, 'jian1', 'Switch Red', 15, '2025-05-25 11:30:24', 'approved', 'jian');
 
 -- --------------------------------------------------------
 
@@ -170,16 +146,6 @@ CREATE TABLE `stok` (
   `jumlah` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `stok`
---
-
-INSERT INTO `stok` (`barang_id`, `jumlah`) VALUES
-(20, 5),
-(21, 1),
-(22, 1),
-(23, 14);
-
 -- --------------------------------------------------------
 
 --
@@ -188,25 +154,12 @@ INSERT INTO `stok` (`barang_id`, `jumlah`) VALUES
 
 CREATE TABLE `transaksi_keuangan` (
   `id` int(11) NOT NULL,
-  `jenis` enum('pemasukan','pengeluaran') NOT NULL,
+  `jenis` varchar(50) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `tanggal` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `keterangan` text DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `transaksi_keuangan`
---
-
-INSERT INTO `transaksi_keuangan` (`id`, `jenis`, `jumlah`, `tanggal`, `keterangan`, `username`) VALUES
-(5, 'pemasukan', 200000, '2025-05-25 11:28:50', 'Pembelian barang \"Headset\" sebanyak 5 oleh user \"jian1\"', 'jian1'),
-(6, 'pemasukan', 200000, '2025-05-25 11:29:31', 'Pembelian barang \"Headset\" sebanyak 5 oleh user \"jian1\"', 'jian1'),
-(7, 'pengeluaran', 52500, '2025-05-25 11:30:44', 'Approve request barang \"Switch Red\" dari user \"jian1\" sebanyak 15', 'jian'),
-(8, 'pemasukan', 10500, '2025-05-25 11:31:10', 'Pengurangan stok barang: Switch Red sebanyak 3', 'jian'),
-(9, 'pengeluaran', 7000, '2025-05-25 11:31:26', 'Penambahan stok barang: Switch Red  sebanyak 2', 'jian'),
-(10, 'pengeluaran', 200000, '2025-05-26 01:35:16', 'Penambahan stok barang: Headset sebanyak 5', 'jian'),
-(11, 'pemasukan', 200000, '2025-05-26 01:36:28', 'Pengurangan stok barang: Keyboard Ajazz sebanyak 1', 'jian');
 
 --
 -- Indexes for dumped tables
@@ -230,14 +183,16 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `barang_keluar`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `barang_id` (`barang_id`);
+  ADD KEY `barang_id` (`barang_id`),
+  ADD KEY `username` (`username`);
 
 --
 -- Indexes for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `barang_id` (`barang_id`);
+  ADD KEY `barang_id` (`barang_id`),
+  ADD KEY `username` (`username`);
 
 --
 -- Indexes for table `keuangan`
@@ -249,20 +204,24 @@ ALTER TABLE `keuangan`
 -- Indexes for table `request_barang`
 --
 ALTER TABLE `request_barang`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`),
+  ADD KEY `idx_status_request` (`status`);
 
 --
 -- Indexes for table `stok`
 --
 ALTER TABLE `stok`
-  ADD PRIMARY KEY (`barang_id`);
+  ADD PRIMARY KEY (`barang_id`),
+  ADD KEY `idx_barang_stok` (`barang_id`);
 
 --
 -- Indexes for table `transaksi_keuangan`
 --
 ALTER TABLE `transaksi_keuangan`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `username` (`username`);
+  ADD KEY `username` (`username`),
+  ADD KEY `idx_jenis_transaksi` (`jenis`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -272,37 +231,37 @@ ALTER TABLE `transaksi_keuangan`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `request_barang`
 --
 ALTER TABLE `request_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transaksi_keuangan`
 --
 ALTER TABLE `transaksi_keuangan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -312,13 +271,21 @@ ALTER TABLE `transaksi_keuangan`
 -- Constraints for table `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  ADD CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_keluar_barang` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_keluar_user` FOREIGN KEY (`username`) REFERENCES `akun` (`username`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  ADD CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_masuk_barang` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_masuk_user` FOREIGN KEY (`username`) REFERENCES `akun` (`username`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `request_barang`
+--
+ALTER TABLE `request_barang`
+  ADD CONSTRAINT `fk_request_username` FOREIGN KEY (`username`) REFERENCES `akun` (`username`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `stok`

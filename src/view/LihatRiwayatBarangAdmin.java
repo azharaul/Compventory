@@ -5,12 +5,25 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import service.DBConnectionService;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
 
     private String name;
+
+    /**
+     *
+     */
     public LihatRiwayatBarangAdmin(){
         initComponents();
     }
+
+    /**
+     *
+     * @param name
+     */
     public LihatRiwayatBarangAdmin(String name) {
         try {
             Connection conn = DBConnectionService.getConnection();
@@ -21,7 +34,7 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
             historyBtn.setVisible(true);
             this.name = name;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menampilkan data barang: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed To Show Item`s Data: " + e.getMessage());
         }
     }
     @SuppressWarnings("unchecked")
@@ -39,28 +52,25 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
         jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("(Admin)History");
+        setTitle("Item History");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(59, 73, 93));
         jPanel1.setForeground(new java.awt.Color(153, 204, 255));
 
         jTable1.setBackground(new java.awt.Color(245, 245, 245));
-        jTable1.setForeground(java.awt.Color.black);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nama Barang", "Harga", "Stock", "Deskripsi"
+                "Item's name", "Price", "Stock", "Description"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        historyBtn.setBackground(java.awt.Color.white);
         historyBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        historyBtn.setForeground(java.awt.Color.black);
-        historyBtn.setText("Cek Riwayat");
+        historyBtn.setText("Check History");
         historyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         historyBtn.setMinimumSize(new java.awt.Dimension(105, 27));
         historyBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,10 +87,8 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
             }
         });
 
-        backBtn.setBackground(java.awt.Color.white);
         backBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        backBtn.setForeground(java.awt.Color.black);
-        backBtn.setText("Back Admin Menu");
+        backBtn.setText("Back To Admin Menu");
         backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.setMinimumSize(new java.awt.Dimension(105, 27));
         backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,10 +105,8 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
             }
         });
 
-        bckListBarangBtn.setBackground(java.awt.Color.white);
         bckListBarangBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        bckListBarangBtn.setForeground(java.awt.Color.black);
-        bckListBarangBtn.setText("Back List Barang");
+        bckListBarangBtn.setText("Back To Items List");
         bckListBarangBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bckListBarangBtn.setPreferredSize(new java.awt.Dimension(105, 27));
         bckListBarangBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,7 +133,7 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(historyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
@@ -177,7 +183,7 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
             bckListBarangBtn.setVisible(false);
             historyBtn.setVisible(true);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menampilkan data barang: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed To Show Item`s Data: " + e.getMessage());
         }
     }//GEN-LAST:event_bckListBarangBtnActionPerformed
 
@@ -204,7 +210,6 @@ public class LihatRiwayatBarangAdmin extends javax.swing.JFrame {
     private void backBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseExited
         backBtn.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_backBtnMouseExited
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

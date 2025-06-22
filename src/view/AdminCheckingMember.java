@@ -8,17 +8,25 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import service.DBConnectionService;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class AdminCheckingMember extends javax.swing.JFrame {
 
     private String name;
     
+    /**
+     *
+     * @param name
+     */
     public AdminCheckingMember(String name) {
         initComponents();
         try (Connection conn = DBConnectionService.getConnection()) {
             showTableListMember(conn);
             this.name = name;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Kesalahan saat Mengambil Data user: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error while retrieving user data: " + ex.getMessage());
         }
     }
     
@@ -34,29 +42,26 @@ public class AdminCheckingMember extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("(Admin)View Member");
+        setTitle("Setting Account");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(59, 73, 93));
 
         jTable1.setBackground(new java.awt.Color(245, 245, 245));
-        jTable1.setForeground(java.awt.Color.black);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Username", "Role", "Waktu Registerasi"
+                "Username", "Role", "Gender", "Register Date"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        editRoleBtn.setBackground(java.awt.Color.white);
         editRoleBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        editRoleBtn.setForeground(java.awt.Color.black);
         editRoleBtn.setText("Setting Role");
         editRoleBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         editRoleBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,10 +78,8 @@ public class AdminCheckingMember extends javax.swing.JFrame {
             }
         });
 
-        deleteBtn.setBackground(java.awt.Color.white);
         deleteBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        deleteBtn.setForeground(java.awt.Color.black);
-        deleteBtn.setText("Back Admin Menu");
+        deleteBtn.setText("Back To Admin Menu");
         deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -92,10 +95,8 @@ public class AdminCheckingMember extends javax.swing.JFrame {
             }
         });
 
-        backBtn.setBackground(java.awt.Color.white);
         backBtn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        backBtn.setForeground(java.awt.Color.black);
-        backBtn.setText("Delete Akun");
+        backBtn.setText("Delete Account");
         backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -189,10 +190,14 @@ public class AdminCheckingMember extends javax.swing.JFrame {
         deleteBtn.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_deleteBtnMouseExited
 
+    /**
+     *
+     * @param conn
+     */
     public void showTableListMember(Connection conn) {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object[][] {},
-            new String[]{"Username", "Role", "Register Date"}
+            new Object[][]{},
+            new String[]{"Username", "Role", "Gender", "Register Date"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -209,49 +214,55 @@ public class AdminCheckingMember extends javax.swing.JFrame {
         jTable1.setColumnSelectionAllowed(false);
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        String sql = "SELECT username, role, Tanggal_Register FROM akun";
+        String sql = "SELECT username, role, gender, Tanggal_Register FROM akun";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 String username = rs.getString("username");
                 String role = rs.getString("role");
+                String genderDb = rs.getString("gender");
+
+                String genderDisplay = "Unknown";
+                if ("l".equalsIgnoreCase(genderDb)) {
+                    genderDisplay = "Laki-laki";
+                } else if ("p".equalsIgnoreCase(genderDb)) {
+                    genderDisplay = "Perempuan";
+                }
+
                 java.sql.Timestamp registerDate = rs.getTimestamp("Tanggal_Register");
-                tb.addRow(new Object[]{username, role, registerDate});
+                tb.addRow(new Object[]{username, role, genderDisplay, registerDate});
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal mengambil data member: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed To Get Data Member: " + e.getMessage());
         }
     }
 
+
     private void updateSelectedUser() {
         int selectedRow = jTable1.getSelectedRow();
-        
+
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih baris / akun yang ingin diupdate.");
+            JOptionPane.showMessageDialog(this, "Please select a user from the table.");
             return;
         }
 
         String currentUsername = jTable1.getValueAt(selectedRow, 0).toString();
-        String currentRole = jTable1.getValueAt(selectedRow, 1).toString();    
+        String currentRole = jTable1.getValueAt(selectedRow, 1).toString();
+        String currentGender = jTable1.getValueAt(selectedRow, 2).toString();
 
-        
         if (currentUsername.equalsIgnoreCase(name)) {
-            JOptionPane.showMessageDialog(this, "Anda tidak bisa mengedit akun Anda sendiri.");
-            return;
-        }
-        
-        String newUsername = JOptionPane.showInputDialog(this, "Ubah Username:", currentUsername);
-        if (newUsername == null || newUsername.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Username tidak boleh kosong.");
+            JOptionPane.showMessageDialog(this, "You are not allowed to edit your own account.");
             return;
         }
 
         String[] roles = {"user", "admin"};
+        String[] genders = {"Male", "Female"};
+
         String newRole = (String) JOptionPane.showInputDialog(
                 this,
-                "Ubah Role:",
-                "Pilih Role",
+                "Change Role:",
+                "Edit Role",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 roles,
@@ -260,47 +271,60 @@ public class AdminCheckingMember extends javax.swing.JFrame {
 
         if (newRole == null) return;
 
+        String newGender = (String) JOptionPane.showInputDialog(
+                this,
+                "Change Gender:",
+                "Edit Gender",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                genders,
+                currentGender
+        );
+
+        if (newGender == null) return;
+
         try (Connection conn = DBConnectionService.getConnection();
              PreparedStatement stmt = conn.prepareStatement(
-                     "UPDATE akun SET username = ?, role = ? WHERE username = ?")) {
+                     "UPDATE akun SET role = ?, gender = ? WHERE username = ?")) {
 
-            stmt.setString(1, newUsername);
-            stmt.setString(2, newRole);
+            stmt.setString(1, newRole);
+            stmt.setString(2, newGender);
             stmt.setString(3, currentUsername);
 
             int affected = stmt.executeUpdate();
 
             if (affected > 0) {
-                JOptionPane.showMessageDialog(this, "User berhasil diperbarui.");
-                showTableListMember(conn); 
+                JOptionPane.showMessageDialog(this, "User updated successfully.");
+                showTableListMember(conn);
             } else {
-                JOptionPane.showMessageDialog(this, "Gagal memperbarui user.");
+                JOptionPane.showMessageDialog(this, "User update failed.");
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Kesalahan saat mengupdate user: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Failed to update user: " + ex.getMessage());
         }
     }
+
 
     private void deleteSelectedUser() {
         int selectedRow = jTable1.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih baris / akun yang ingin dihapus.");
+            JOptionPane.showMessageDialog(this, "Please select a row/account to delete.");
             return;
         }
 
-        String selectedUsername = jTable1.getValueAt(selectedRow, 0).toString(); // Kolom 0 = Username
+        String selectedUsername = jTable1.getValueAt(selectedRow, 0).toString(); // Column 0 = Username
 
         if (selectedUsername.equalsIgnoreCase(name)) {
-            JOptionPane.showMessageDialog(this, "Anda tidak bisa menghapus akun Anda sendiri.");
+            JOptionPane.showMessageDialog(this, "You cannot delete your own account.");
             return;
         }
 
         int confirm = JOptionPane.showConfirmDialog(
                 this,
-                "Apakah Anda yakin ingin menghapus akun \"" + selectedUsername + "\"?",
-                "Konfirmasi Hapus",
+                "Are you sure you want to delete the account \"" + selectedUsername + "\"?",
+                "Delete Confirmation",
                 JOptionPane.YES_NO_OPTION
         );
 
@@ -314,17 +338,18 @@ public class AdminCheckingMember extends javax.swing.JFrame {
             int affected = stmt.executeUpdate();
 
             if (affected > 0) {
-                JOptionPane.showMessageDialog(this, "Akun berhasil dihapus.");
+                JOptionPane.showMessageDialog(this, "Account successfully deleted.");
                 showTableListMember(conn);
             } else {
-                JOptionPane.showMessageDialog(this, "Gagal menghapus akun.");
+                JOptionPane.showMessageDialog(this, "Failed to delete the account.");
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Kesalahan saat menghapus akun: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error while deleting account: " + ex.getMessage());
         }
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JButton deleteBtn;

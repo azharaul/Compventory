@@ -14,19 +14,63 @@ import javax.swing.JTable;
  * @author auliazhar
  */
 public interface BarangRepository {
-     public void showTableListBarang(JTable table, Connection conn);
+
+    /**
+     *
+     * @param table
+     * @param conn
+     */
+    public void showTableListBarang(JTable table, Connection conn);
      
-     public void tambahBarangStock(Component parentComponent, JTable table, String username);
+    /**
+     *
+     * @param parentComponent
+     * @param table
+     * @param username
+     */
+    public void tambahBarangStock(Component parentComponent, JTable table, String username);
      
-     public void KurangiStockBarang(Component parentComponent, JTable table, String username);
+    /**
+     *
+     * @param parentComponent
+     * @param table
+     * @param username
+     */
+    public void KurangiStockBarang(Component parentComponent, JTable table, String username);
      
-     public void tambahBarangBaru(Component parentComponent, JTable table);
+    /**
+     *
+     * @param parentComponent
+     * @param table
+     */
+    public void tambahBarangBaru(Component parentComponent, JTable table);
      
-     public void lihatRiwayatBarang(JTable table, Component parentComponent, JButton button, JButton button2);
+    /**
+     *
+     * @param table
+     * @param parentComponent
+     * @param button
+     * @param button2
+     */
+    public void lihatRiwayatBarang(JTable table, Component parentComponent, JButton button, JButton button2);
      
-     public void userBeliBarang(JTable table, Connection conn, String username);
+    /**
+     *
+     * @param table
+     * @param conn
+     * @param username
+     */
+    public void userBeliBarang(JTable table, Connection conn, String username);
      
-     public void catatTransaksiKeuangan(String jenis, int jumlah, String keterangan, String username, int status);
+    /**
+     *
+     * @param jenis
+     * @param jumlah
+     * @param keterangan
+     * @param username
+     * @param status
+     */
+    public void catatTransaksiKeuangan(String jenis, int jumlah, String keterangan, String username, int status);
 }
 
 

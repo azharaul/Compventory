@@ -5,8 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import service.DBConnectionService;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class KeuanganRepositoryImpl implements KeuanganRepository{
-@Override
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public int getSaldo() {
         int saldo = 0;
         try (Connection conn = DBConnectionService.getConnection();
@@ -17,10 +26,15 @@ public class KeuanganRepositoryImpl implements KeuanganRepository{
                 saldo = rs.getInt("saldo"); 
             }
         } catch (SQLException e) {
-            System.err.println("Gagal mengambil saldo: " + e.getMessage());
+            System.err.println("Failed to take balance: " + e.getMessage());
         }
         return saldo;
     }
+
+    /**
+     *
+     * @param saldoBaru
+     */
     @Override
     public void setSaldo(int saldoBaru) {
         try (Connection conn = DBConnectionService.getConnection();
@@ -29,7 +43,7 @@ public class KeuanganRepositoryImpl implements KeuanganRepository{
             ps.setInt(1, saldoBaru);  
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Gagal mengupdate saldo: " + e.getMessage());
+            System.err.println("Failed to update balance: " + e.getMessage());
         }
     }
 

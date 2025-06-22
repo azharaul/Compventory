@@ -7,26 +7,54 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Zildjian XTO
+ */
 public class AkunRepositoryImpl implements AkunRepository {
 
+    /**
+     *
+     */
     public static final String ROLE_ADMIN = "admin";
+
+    /**
+     *
+     */
     public static final String ROLE_USER = "user";
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @param role
+     * @param gender
+     * @return
+     */
     @Override
-    public boolean register(String username, String password, String role) {
-        String query = "INSERT INTO akun (username, password, role) VALUES (?, ?, ?)";
-        try (Connection conn = DBConnectionService.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+    public boolean register(String username, String password, String role, String gender) {
+        String query = "INSERT INTO akun (username, password, role, gender) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DBConnectionService.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
             stmt.setString(1, username);
             stmt.setString(2, hashPassword(password));
             stmt.setString(3, role);
+            stmt.setString(4, gender);
+
             int affected = stmt.executeUpdate();
             return affected > 0;
         } catch (SQLException e) {
-            showMessageDialog(null, e.getMessage(), "Registeration", ERROR_MESSAGE);
+            showMessageDialog(null, e.getMessage(), "Registration", ERROR_MESSAGE);
             return false;
         }
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public boolean isUsernameTaken(String username) {
         String query = "SELECT COUNT(*) FROM akun WHERE username = ?";
         try (Connection conn = DBConnectionService.getConnection();
@@ -43,6 +71,11 @@ public class AkunRepositoryImpl implements AkunRepository {
         return false;
     }
 
+    /**
+     *
+     * @param password
+     * @return
+     */
     public String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -57,6 +90,12 @@ public class AkunRepositoryImpl implements AkunRepository {
         }
     }
     
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public boolean login(String username, String password) {
         String query = "SELECT * FROM akun WHERE username = ? AND password = ?";
@@ -71,6 +110,11 @@ public class AkunRepositoryImpl implements AkunRepository {
         }
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     @Override
     public String getRole(String username) {
         String query = "SELECT role FROM akun WHERE username = ?";
@@ -86,6 +130,11 @@ public class AkunRepositoryImpl implements AkunRepository {
         return null;
     }
     
+    /**
+     *
+     * @param input
+     * @return
+     */
     public static boolean cekSimbolInput(String input) {
         for (char c : input.toCharArray()) {
             if ("!@#$%^&*()".indexOf(c) != -1) {

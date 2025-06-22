@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package service;
 
 import java.sql.Connection;
@@ -14,15 +10,28 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author auliazhar
+ * @author Zildjian XTO
  */
 public interface CekRequestService {
+
+    /**
+     *
+     * @param conn
+     * @param table
+     * @param adminUsername
+     */
     public void approveRequest(Connection conn, JTable table, String adminUsername);
     
+    /**
+     *
+     * @param conn
+     * @param table
+     * @param username
+     */
     public default void ShowRequestUser(Connection conn, JTable table, String username) {
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object[][]{},
-            new String[]{"Username", "Nama Barang", "Jumlah Barang", "Status", "Approved By"}
+            new String[]{"Username", "Item's name", "Quantity", "Status", "Approved By"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -56,7 +65,7 @@ public interface CekRequestService {
                 tb.addRow(row);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal memuat data request barang: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to load item request data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
