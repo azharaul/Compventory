@@ -7,7 +7,7 @@
   **Kelas:** A  
   **NPM:** 1402024054  
 
-- **Nama:** Aditnya Wijaya Putra  
+- **Nama:** Aditya Wijaya Putra  
   **Kelas:** A  
   **NPM:** 1402024004  
 
