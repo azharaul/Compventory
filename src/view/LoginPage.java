@@ -36,6 +36,7 @@ public class LoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        showPassword = new javax.swing.JCheckBox();
         passwordInput = new javax.swing.JPasswordField();
         passwordLabel = new javax.swing.JLabel();
         usernameLabel = new javax.swing.JLabel();
@@ -50,6 +51,17 @@ public class LoginPage extends javax.swing.JFrame {
         setTitle("Login Page");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        showPassword.setForeground(java.awt.Color.white);
+        showPassword.setText("Show Password");
+        showPassword.setContentAreaFilled(false);
+        showPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        showPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(showPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, -1, -1));
         getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 225, 35));
 
         passwordLabel.setBackground(new java.awt.Color(0, 0, 0));
@@ -87,7 +99,7 @@ public class LoginPage extends javax.swing.JFrame {
                 loginButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 225, 35));
+        getContentPane().add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 370, 225, 35));
 
         registerLink.setBackground(new java.awt.Color(0, 0, 0));
         registerLink.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
@@ -105,12 +117,12 @@ public class LoginPage extends javax.swing.JFrame {
                 registerLinkMouseExited(evt);
             }
         });
-        getContentPane().add(registerLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 390, 130, -1));
+        getContentPane().add(registerLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 410, 130, -1));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Don't have an account?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 390, 220, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 220, -1));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/background/loginBackground.png"))); // NOI18N
         Background.setText("jLabel1");
@@ -261,6 +273,15 @@ public class LoginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameInputActionPerformed
 
+    private void showPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordActionPerformed
+        // TODO add your handling code here:
+        if (showPassword.isSelected()) {
+            passwordInput.setEchoChar((char) 0); // Tampilkan teks
+        } else {
+            passwordInput.setEchoChar('*'); // Sembunyikan teks
+        }
+    }//GEN-LAST:event_showPasswordActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
@@ -270,6 +291,7 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel registerLink;
+    private javax.swing.JCheckBox showPassword;
     private javax.swing.JTextField usernameInput;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables

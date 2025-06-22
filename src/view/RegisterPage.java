@@ -22,8 +22,9 @@ public class RegisterPage extends javax.swing.JFrame {
     private void initComponents() {
 
         registerButton = new javax.swing.JButton();
+        showPassword = new javax.swing.JCheckBox();
+        confirmPasswordInput = new javax.swing.JPasswordField();
         passwordInput = new javax.swing.JPasswordField();
-        confirmPwInput = new javax.swing.JPasswordField();
         passwordLabel = new javax.swing.JLabel();
         passwordLabel1 = new javax.swing.JLabel();
         usernameLabel = new javax.swing.JLabel();
@@ -58,7 +59,27 @@ public class RegisterPage extends javax.swing.JFrame {
                 registerButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 400, 225, 35));
+        getContentPane().add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, 225, 35));
+
+        showPassword.setForeground(java.awt.Color.white);
+        showPassword.setText("Show Password");
+        showPassword.setContentAreaFilled(false);
+        showPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        showPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(showPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 360, -1, -1));
+
+        confirmPasswordInput.setBackground(new java.awt.Color(255, 255, 255));
+        confirmPasswordInput.setForeground(new java.awt.Color(0, 0, 0));
+        confirmPasswordInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmPasswordInputActionPerformed(evt);
+            }
+        });
+        getContentPane().add(confirmPasswordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 320, 225, 35));
 
         passwordInput.setBackground(new java.awt.Color(255, 255, 255));
         passwordInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -67,34 +88,25 @@ public class RegisterPage extends javax.swing.JFrame {
                 passwordInputActionPerformed(evt);
             }
         });
-        getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 225, 35));
-
-        confirmPwInput.setBackground(new java.awt.Color(255, 255, 255));
-        confirmPwInput.setForeground(new java.awt.Color(0, 0, 0));
-        confirmPwInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmPwInputActionPerformed(evt);
-            }
-        });
-        getContentPane().add(confirmPwInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 290, 225, 35));
+        getContentPane().add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 260, 225, 35));
 
         passwordLabel.setBackground(new java.awt.Color(0, 0, 0));
         passwordLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel.setText("Confirm password :");
-        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 330, 220, 20));
+        getContentPane().add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, 220, 20));
 
         passwordLabel1.setBackground(new java.awt.Color(0, 0, 0));
         passwordLabel1.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         passwordLabel1.setForeground(new java.awt.Color(255, 255, 255));
         passwordLabel1.setText("Password :");
-        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 270, 220, -1));
+        getContentPane().add(passwordLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 240, 220, -1));
 
         usernameLabel.setBackground(new java.awt.Color(0, 0, 0));
         usernameLabel.setFont(new java.awt.Font("JetBrains Mono NL ExtraBold", 1, 14)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
         usernameLabel.setText("Username :");
-        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 170, 220, -1));
+        getContentPane().add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 180, 220, -1));
 
         usernameInput.setBackground(new java.awt.Color(255, 255, 255));
         usernameInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -103,12 +115,12 @@ public class RegisterPage extends javax.swing.JFrame {
                 usernameInputActionPerformed(evt);
             }
         });
-        getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 190, 225, 35));
+        getContentPane().add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 200, 225, 35));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Already have an account?");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 450, 150, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 430, 180, -1));
 
         loginLink1.setBackground(new java.awt.Color(0, 0, 0));
         loginLink1.setFont(new java.awt.Font("JetBrains Mono NL", 1, 12)); // NOI18N
@@ -126,17 +138,21 @@ public class RegisterPage extends javax.swing.JFrame {
                 loginLink1MouseExited(evt);
             }
         });
-        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 450, 40, -1));
+        getContentPane().add(loginLink1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 430, 40, -1));
 
         perempuan.setBackground(new java.awt.Color(255, 255, 255));
-        perempuan.setForeground(new java.awt.Color(0, 0, 0));
+        perempuan.setForeground(java.awt.Color.white);
         perempuan.setText("Female");
-        getContentPane().add(perempuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 240, -1, -1));
+        perempuan.setContentAreaFilled(false);
+        perempuan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(perempuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 360, -1, -1));
 
         lakilaki.setBackground(new java.awt.Color(255, 255, 255));
-        lakilaki.setForeground(new java.awt.Color(0, 0, 0));
+        lakilaki.setForeground(java.awt.Color.white);
         lakilaki.setText("Male");
-        getContentPane().add(lakilaki, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, -1, -1));
+        lakilaki.setContentAreaFilled(false);
+        lakilaki.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(lakilaki, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 360, -1, -1));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img/background/registerBackground.png"))); // NOI18N
         Background.setText("jLabel1");
@@ -165,8 +181,8 @@ public class RegisterPage extends javax.swing.JFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         String username = usernameInput.getText().trim();
-        String password = passwordInput.getText();
-        String confirmPassword = confirmPwInput.getText();
+        String password = confirmPasswordInput.getText();
+        String confirmPassword = passwordInput.getText();
 
         if (username.length() < 4) {
             JOptionPane.showMessageDialog(null,
@@ -225,19 +241,19 @@ public class RegisterPage extends javax.swing.JFrame {
         }
 
         if (password.isEmpty()) {
-            passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            confirmPasswordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
             errorMessage.append("- Password\n");
             hasEmptyField = true;
         } else {
-            passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            confirmPasswordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
         if (confirmPassword.isEmpty()) {
-            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
             errorMessage.append("- Confirm Password\n");
             hasEmptyField = true;
         } else {
-            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
         if (hasEmptyField) {
@@ -250,7 +266,7 @@ public class RegisterPage extends javax.swing.JFrame {
         }
 
         if (!confirmPassword.equals(password)) {
-            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.RED));
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null,
                 "Password confirmation does not match!",
                 "Registration",
@@ -258,7 +274,7 @@ public class RegisterPage extends javax.swing.JFrame {
             );
             return;
         } else {
-            confirmPwInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            passwordInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         }
 
         String gender = null;
@@ -319,13 +335,13 @@ public class RegisterPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_usernameInputActionPerformed
 
-    private void confirmPwInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPwInputActionPerformed
-
-    }//GEN-LAST:event_confirmPwInputActionPerformed
-
     private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordInputActionPerformed
 
     }//GEN-LAST:event_passwordInputActionPerformed
+
+    private void confirmPasswordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPasswordInputActionPerformed
+
+    }//GEN-LAST:event_confirmPasswordInputActionPerformed
 
     private void loginLink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginLink1MouseClicked
         new LoginPage().setVisible(true);
@@ -348,10 +364,21 @@ public class RegisterPage extends javax.swing.JFrame {
         registerButton.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_registerButtonMouseExited
 
+    private void showPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordActionPerformed
+        // TODO add your handling code here:
+         if (showPassword.isSelected()) {
+            passwordInput.setEchoChar((char) 0); // Tampilkan teks
+            confirmPasswordInput.setEchoChar((char) 0);
+        } else {
+            passwordInput.setEchoChar('*'); // Sembunyikan teks
+            confirmPasswordInput.setEchoChar('*');
+        }
+    }//GEN-LAST:event_showPasswordActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JPanel JPanel;
-    private javax.swing.JPasswordField confirmPwInput;
+    private javax.swing.JPasswordField confirmPasswordInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JCheckBox lakilaki;
     private javax.swing.JLabel loginLink1;
@@ -360,6 +387,7 @@ public class RegisterPage extends javax.swing.JFrame {
     private javax.swing.JLabel passwordLabel1;
     private javax.swing.JCheckBox perempuan;
     private javax.swing.JButton registerButton;
+    private javax.swing.JCheckBox showPassword;
     private javax.swing.JTextField usernameInput;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
